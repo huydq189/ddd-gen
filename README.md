@@ -1,6 +1,6 @@
-# Types-ddd CLI
+# DDD-generator CLI
 
-A command-line interface to generate resources based in templates
+A command-line interface to generate resources based in templates with
 
 ![](docs/print.png)
 
@@ -12,7 +12,7 @@ Installing globally
 
 ```sh
 
-$ npm install -g types-ddd-cli
+$ npm install -g ddd-generator
 
 ```
 
@@ -20,7 +20,7 @@ Installing in project using yarn
 
 ```sh
 
-$ yarn add types-ddd-cli -D
+$ yarn add ddd-generator -D
 
 ```
 
@@ -30,7 +30,7 @@ See help center
 
 ```sh
 
-$ types-ddd --help
+$ ddd-gen --help
 
 ```
 
@@ -38,8 +38,16 @@ Basic commands
 
 ```sh
 
-# types-ddd create [resource] [options]
+# ddd-gen generate [path-to-excel] [options]
 
-$ types-ddd create rest-api --name my-api --path ./my-folder
+$ ddd-gen generate ./path-to-excel --domain-name todo
+
+```
+
+```sh
+
+# ddd-gen start
+
+$ ddd-gen start
 
 ```

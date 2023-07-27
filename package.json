@@ -1,8 +1,12 @@
 {
-    "name": "types-ddd-cli",
-    "version": "1.0.2",
+    "name": "ddd-generate",
+    "version": "0.0.1-alpha1",
     "main": "bin/index.js",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/huydq189/ddd-gen"
+    },
     "description": "This package provide a cli to generate ddd files",
     "bin": {
         "ddd-gen": "bin/index.js"
