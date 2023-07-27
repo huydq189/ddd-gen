@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "declaration": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "outDir": "build",
+        "paths": {
+            "@types": ["interfaces/index"],
+            "@lib/*": ["lib/*"],
+            "@commands/*": ["commands/*"],
+            "@actions/*": ["actions/*"],
+            "@ui/*": ["ui/*"],
+            "@/*": ["*"]
+        }
+    },
+    "include": ["docs", "actions", "bin", "commands", "lib", "ui", "define-lib-path.ts", "register-paths.ts"],
+    "exclude": ["node_modules", "e2e", "tests", "coverage"]
+}

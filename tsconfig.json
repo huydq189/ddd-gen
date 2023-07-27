@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "declaration": true,
+        "importHelpers": true,
+        "module": "commonjs",
+        "outDir": "dist",
+        "removeComments": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "lib": ["es6"],
+        "types": ["node"],
+        "typeRoots": ["node_modules/@types"]
+    },
+    "include": ["bin", "commands", "lib", "tests"],
+    "exclude": ["node_modules", "e2e"]
+}

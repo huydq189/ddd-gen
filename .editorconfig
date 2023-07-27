@@ -1,0 +1,20 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = false
+max_line_length = 110
+
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,ts}]
+charset = utf-8
+
+[src/**.{js,ts}]
+indent_style = space
+indent_size = 4
