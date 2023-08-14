@@ -2,7 +2,6 @@
 
 import { Command } from 'commander';
 import { generateRestAPI } from '../commands';
-import select, { Separator } from '@inquirer/select';
 import { getDomainName, getExcelPath, getInputType } from './application';
 
 const program = new Command();

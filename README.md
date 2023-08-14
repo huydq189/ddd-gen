@@ -12,7 +12,7 @@ Installing globally
 
 ```sh
 
-$ npm install -g ddd-generator
+$ npm install -g ddd-generate
 
 ```
 
@@ -20,7 +20,7 @@ Installing in project using yarn
 
 ```sh
 
-$ yarn add ddd-generator -D
+$ yarn add ddd-generate -D
 
 ```
 
