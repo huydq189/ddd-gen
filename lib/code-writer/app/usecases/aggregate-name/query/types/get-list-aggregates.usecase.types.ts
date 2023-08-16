@@ -45,8 +45,5 @@ export function createAggregateGetListUseCaseTypeFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(
-        `${aggregateErrorFolder}/get-list-${lowerCaseAggregateName}.usecase.types.ts`,
-        fileContent,
-    );
+    fs.writeFileSync(`${aggregateErrorFolder}/get-list-${lowerCaseAggregateName}.types.ts`, fileContent);
 }

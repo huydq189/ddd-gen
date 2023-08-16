@@ -1,3 +1,3 @@
-export * from './error-codes.const';
-export * from './event-names.const';
+export * from './error-codes.consts';
+export * from './event-names.consts';
 export * from './index-file.const';

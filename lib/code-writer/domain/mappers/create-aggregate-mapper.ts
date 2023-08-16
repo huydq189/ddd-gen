@@ -25,7 +25,7 @@ export function createAggregateMapperFile(input: any) {
         .writeLine(`import { InjectTokens } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName} } from '../aggregates';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../builders';`)
-        .writeLine(`import { I${aggregateClassName}DTO } from '../dtos';`)
+        .writeLine(`import { ${aggregateClassName}DTO } from '../dtos';`)
         .blankLine();
 
     writer

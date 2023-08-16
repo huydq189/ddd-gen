@@ -20,30 +20,30 @@ export function createAggregateUseCaseCommandTypeIndexFile(input: {
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './create-${lowerCaseAggregateName}.usecase.types.ts';`);
-        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.usecase.types.ts';`);
-        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.usecase.types.ts';`);
+        writer.writeLine(`export * from './create-${lowerCaseAggregateName}.types';`);
+        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.types.ts';`);
+        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.types.ts';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
-    if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './create-${lowerCaseAggregateName}.usecase.types.ts';`,
+            `export * from './create-${lowerCaseAggregateName}.types';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './update-${lowerCaseAggregateName}.usecase.types.ts';`,
+            `export * from './update-${lowerCaseAggregateName}.types';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './delete-${lowerCaseAggregateName}.usecase.types.ts';`,
+            `export * from './delete-${lowerCaseAggregateName}.types';\n`,
         );
     }
 }

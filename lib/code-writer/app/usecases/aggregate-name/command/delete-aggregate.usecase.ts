@@ -95,7 +95,7 @@ export function createAggregateDeleteUseCaseFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateErrorFolder}/${lowerCaseAggregateName}-delete.usecase.ts`, fileContent);
+    fs.writeFileSync(`${aggregateErrorFolder}/delete-${lowerCaseAggregateName}.usecase.ts`, fileContent);
 }
 
 // import { Inject, Provider, Scope } from '@heronjs/common';

@@ -25,22 +25,22 @@ export function createAggregateUseCaseCommandIndexFile(input: { aggregateName: s
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
-    if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.usecase.ts';`)) {
+    if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './create-${lowerCaseAggregateName}.usecase.ts';`,
+            `export * from './create-${lowerCaseAggregateName}.usecase.ts';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.usecase.ts';`)) {
+    if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './update-${lowerCaseAggregateName}.usecase.ts';`,
+            `export * from './update-${lowerCaseAggregateName}.usecase.ts';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.usecase.ts';`)) {
+    if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './delete-${lowerCaseAggregateName}.usecase.ts';`,
+            `export * from './delete-${lowerCaseAggregateName}.usecase';\n`,
         );
     }
 }

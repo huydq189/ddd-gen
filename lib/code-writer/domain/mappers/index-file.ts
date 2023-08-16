@@ -17,13 +17,13 @@ export function createAggregateMapperIndexFile(input: { aggregateName: string; d
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.mapper.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.mapper';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateMapperFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateMapperFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.mapper.ts';`)) {
-        fs.appendFileSync(indexAggregateMapperFile, `export * from './${lowerCaseAggregateName}.mapper.ts';`);
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.mapper';`)) {
+        fs.appendFileSync(indexAggregateMapperFile, `export * from './${lowerCaseAggregateName}.mapper';\n`);
     }
 }

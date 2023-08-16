@@ -17,13 +17,13 @@ export function createAggregateDAOIndexFile(input: { aggregateName: string; doma
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.dao.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.dao';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDAOFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateDAOFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.dao.ts';`)) {
-        fs.appendFileSync(indexAggregateDAOFile, `export * from './${lowerCaseAggregateName}.dao.ts';`);
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.dao';`)) {
+        fs.appendFileSync(indexAggregateDAOFile, `export * from './${lowerCaseAggregateName}.dao';\n`);
     }
 }

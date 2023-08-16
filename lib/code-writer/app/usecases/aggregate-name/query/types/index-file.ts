@@ -20,30 +20,30 @@ export function createAggregateUseCaseQueryTypeIndexFile(input: {
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './get-list-${lowerCaseAggregateName}.usecase.types.ts';`);
-        writer.writeLine(`export * from './get-${lowerCaseAggregateName}-by-id.usecase.types.ts';`);
-        writer.writeLine(`export * from './count-list-${lowerCaseAggregateName}.usecase.types.ts';`);
+        writer.writeLine(`export * from './get-list-${lowerCaseAggregateName}.types';`);
+        writer.writeLine(`export * from './get-${lowerCaseAggregateName}-by-id.types';`);
+        writer.writeLine(`export * from './count-list-${lowerCaseAggregateName}.types';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
-    if (!fileContent.includes(`export * from './get-list-${lowerCaseAggregateName}.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './get-list-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './get-list-${lowerCaseAggregateName}.usecase.types.ts';`,
+            `export * from './get-list-${lowerCaseAggregateName}.usecase.types';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './get-${lowerCaseAggregateName}-by-id.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './get-${lowerCaseAggregateName}-by-id.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './get-${lowerCaseAggregateName}-by-id.usecase.types.ts';`,
+            `export * from './get-${lowerCaseAggregateName}-by-id.usecase.types';\n`,
         );
     }
-    if (!fileContent.includes(`export * from './count-list-${lowerCaseAggregateName}.usecase.types.ts';`)) {
+    if (!fileContent.includes(`export * from './count-list-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './count-list-${lowerCaseAggregateName}.usecase.types.ts';`,
+            `export * from './count-list-${lowerCaseAggregateName}.types';\n`,
         );
     }
 }

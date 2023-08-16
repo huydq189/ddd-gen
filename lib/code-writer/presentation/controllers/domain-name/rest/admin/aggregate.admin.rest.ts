@@ -16,7 +16,7 @@ export function createAggregatePresentationFile(input: any) {
     const aggregateClassName = createClassName(aggregateName);
 
     /****************************************** CREATE FOLDER ******************************************/
-    const aggregateFolder = `src/features/${domainName.toLowerCase()}/presentation/controllers/rest/${domainName.toLowerCase()}/admin`;
+    const aggregateFolder = `src/features/${domainName.toLowerCase()}/presentation/controllers/${domainName.toLowerCase()}/rest/admin`;
     createFolderIfNotExists(aggregateFolder);
 
     /****************************************** FILE CONTENT ******************************************/
@@ -198,13 +198,16 @@ export function createAggregatePresentationFile(input: any) {
 
     fs.writeFileSync(`${aggregateFolder}/${lowerCaseAggregateName}.admin.rest.ts`, fileContent);
     fs.writeFileSync(`${aggregatePresentationFolder}/index.ts`, `export * from './controllers';`);
-    fs.writeFileSync(`${aggregatePresentationFolder}/controllers/index.ts`, `export * from './rest';`);
     fs.writeFileSync(
-        `${aggregatePresentationFolder}/controllers/rest/index.ts`,
+        `${aggregatePresentationFolder}/controllers/index.ts`,
         `export * from './${domainName.toLowerCase()}';`,
     );
     fs.writeFileSync(
-        `${aggregatePresentationFolder}/controllers/rest/${domainName.toLowerCase()}/index.ts`,
+        `${aggregatePresentationFolder}/controllers/${domainName.toLowerCase()}/index.ts`,
+        `export * from './rest';`,
+    );
+    fs.writeFileSync(
+        `${aggregatePresentationFolder}/controllers/${domainName.toLowerCase()}/rest/index.ts`,
         `export * from './admin';`,
     );
 
@@ -214,16 +217,16 @@ export function createAggregatePresentationFile(input: any) {
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.admin.rest.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.admin.rest';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${aggregateFolder}/index.ts`, fileContent);
         return;
     }
     const fileIndexContent = fs.readFileSync(`${aggregateFolder}/index.ts`, 'utf8');
-    if (!fileIndexContent.includes(`export * from './${lowerCaseAggregateName}.admin.rest.ts';`)) {
+    if (!fileIndexContent.includes(`export * from './${lowerCaseAggregateName}.admin.rest';`)) {
         fs.appendFileSync(
             `${aggregateFolder}/index.ts`,
-            `export * from './${lowerCaseAggregateName}.admin.rest.ts';`,
+            `export * from './${lowerCaseAggregateName}.admin.rest';\n`,
         );
     }
 }

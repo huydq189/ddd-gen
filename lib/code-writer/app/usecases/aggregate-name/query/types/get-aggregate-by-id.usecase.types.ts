@@ -45,8 +45,5 @@ export function createAggregateGetByIdUseCaseTypeFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(
-        `${aggregateErrorFolder}/get-${lowerCaseAggregateName}-by-id.usecase.types.ts`,
-        fileContent,
-    );
+    fs.writeFileSync(`${aggregateErrorFolder}/get-${lowerCaseAggregateName}-by-id.types.ts`, fileContent);
 }

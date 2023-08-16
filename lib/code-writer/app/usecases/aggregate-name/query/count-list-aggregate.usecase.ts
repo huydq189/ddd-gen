@@ -78,10 +78,10 @@ export function createAggregateCountListUseCaseFile(input: {
         .writeLine(`${Space8x}return this._dao.count(input);`)
         .writeLine(`${Space4x}};`)
         .writeLine(
-            `${Space4x}map = async (dtos: ResultOf<CountList${aggregateClassName}UseCase, 'processing'>) => {`,
+            `${Space4x}map = async (count: ResultOf<CountList${aggregateClassName}UseCase, 'processing'>) => {`,
         )
         .writeLine(`${Space8x}return {`)
-        .writeLine(`${Space12x}totalCount,`)
+        .writeLine(`${Space12x}totalCount: count,`)
         .writeLine(`${Space8x}} as O;`)
         .writeLine(`${Space4x}};`);
 

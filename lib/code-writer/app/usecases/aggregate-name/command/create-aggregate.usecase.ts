@@ -103,5 +103,5 @@ export function createAggregateCreateUseCaseFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateErrorFolder}/${lowerCaseAggregateName}-create.usecase.ts`, fileContent);
+    fs.writeFileSync(`${aggregateErrorFolder}/create-${lowerCaseAggregateName}.usecase.ts`, fileContent);
 }

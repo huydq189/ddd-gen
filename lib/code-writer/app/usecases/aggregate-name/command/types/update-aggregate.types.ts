@@ -49,8 +49,5 @@ export function createAggregateUpdateUseCaseTypeFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(
-        `${aggregateErrorFolder}/${lowerCaseAggregateName}-update.usecase.types.ts`,
-        fileContent,
-    );
+    fs.writeFileSync(`${aggregateErrorFolder}/update-${lowerCaseAggregateName}.types.ts`, fileContent);
 }

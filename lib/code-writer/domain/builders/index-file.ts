@@ -20,7 +20,7 @@ export function createAggregateBuilderIndexFile(input: { aggregateName: string; 
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.builder.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.builder';`);
 
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateBuilderFile}`, fileContent);
@@ -28,10 +28,10 @@ export function createAggregateBuilderIndexFile(input: { aggregateName: string; 
     }
 
     const fileContent = fs.readFileSync(indexAggregateBuilderFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.builder.ts';`)) {
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.builder';`)) {
         fs.appendFileSync(
             indexAggregateBuilderFile,
-            `export * from './${lowerCaseAggregateName}.builder.ts';`,
+            `export * from './${lowerCaseAggregateName}.builder';\n`,
         );
     }
 }

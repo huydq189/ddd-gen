@@ -30,5 +30,5 @@ export function createAggregateErrorCodesConstFile(input: any) {
         .newLine();
 
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateConstFolder}/${lowerCaseAggregateName}-error-codes.const.ts`, fileContent);
+    fs.writeFileSync(`${aggregateConstFolder}/${lowerCaseAggregateName}-error-codes.consts.ts`, fileContent);
 }

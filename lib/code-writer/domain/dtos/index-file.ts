@@ -17,13 +17,13 @@ export function createAggregateDTOIndexFile(input: { aggregateName: string; doma
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.dto.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.dto';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.dto.ts';`)) {
-        fs.appendFileSync(indexAggregateDTOFile, `export * from './${lowerCaseAggregateName}.dto.ts';`);
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.dto';`)) {
+        fs.appendFileSync(indexAggregateDTOFile, `export * from './${lowerCaseAggregateName}.dto';\n`);
     }
 }

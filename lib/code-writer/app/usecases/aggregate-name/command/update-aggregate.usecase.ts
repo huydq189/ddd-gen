@@ -95,7 +95,7 @@ export function createAggregateUpdateUseCaseFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateErrorFolder}/${lowerCaseAggregateName}-update.usecase.ts`, fileContent);
+    fs.writeFileSync(`${aggregateErrorFolder}/update-${lowerCaseAggregateName}.usecase.ts`, fileContent);
 }
 
 // import { Inject, Provider, Scope } from '@heronjs/common';

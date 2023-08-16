@@ -30,5 +30,5 @@ export function createAggregateEventNamesConstFile(input: any) {
         .newLine();
 
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateConstFolder}/${lowerCaseAggregateName}-event-names.const.ts`, fileContent);
+    fs.writeFileSync(`${aggregateConstFolder}/${lowerCaseAggregateName}-event-names.consts.ts`, fileContent);
 }

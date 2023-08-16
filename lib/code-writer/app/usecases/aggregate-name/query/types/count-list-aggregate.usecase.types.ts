@@ -43,8 +43,5 @@ export function createAggregateCountListUseCaseTypeFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(
-        `${aggregateErrorFolder}/count-list-${lowerCaseAggregateName}.usecase.types.ts`,
-        fileContent,
-    );
+    fs.writeFileSync(`${aggregateErrorFolder}/count-list-${lowerCaseAggregateName}.types.ts`, fileContent);
 }

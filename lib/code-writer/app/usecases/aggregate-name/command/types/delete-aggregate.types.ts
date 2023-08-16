@@ -30,10 +30,11 @@ export function createAggregateDeleteUseCaseTypeFile(input: {
     });
 
     writer
+        .writeLine(`import { z } from 'zod';`)
         .writeLine(
             `import { Delete${aggregateClassName}Input, Delete${aggregateClassName}InputSchema } from '../../../../../domain';`,
         )
-        .writeLine(`export type Delete${aggregateClassName}UseCaseInput = Delete${aggregateClassName}Input`)
+        .writeLine(`export type Delete${aggregateClassName}UseCaseInput = Delete${aggregateClassName}Input;`)
         .writeLine(
             `export const Delete${aggregateClassName}UseCaseInputSchema = Delete${aggregateClassName}InputSchema.extend({`,
         )
@@ -43,8 +44,5 @@ export function createAggregateDeleteUseCaseTypeFile(input: {
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(
-        `${aggregateErrorFolder}/${lowerCaseAggregateName}-delete.usecase.types.ts`,
-        fileContent,
-    );
+    fs.writeFileSync(`${aggregateErrorFolder}/delete-${lowerCaseAggregateName}.types.ts`, fileContent);
 }

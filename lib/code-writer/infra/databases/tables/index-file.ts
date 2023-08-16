@@ -17,13 +17,13 @@ export function createAggregateTableIndexFile(input: { aggregateName: string; do
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.table.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.table';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateTableFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateTableFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.table.ts';`)) {
-        fs.appendFileSync(indexAggregateTableFile, `export * from './${lowerCaseAggregateName}.table.ts';`);
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.table';`)) {
+        fs.appendFileSync(indexAggregateTableFile, `export * from './${lowerCaseAggregateName}.table';\n`);
     }
 }

@@ -17,16 +17,16 @@ export function createAggregateRepositoryIndexFile(input: { aggregateName: strin
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './${lowerCaseAggregateName}.repository.ts';`);
+        writer.writeLine(`export * from './${lowerCaseAggregateName}.repository';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateRepositoryFile}`, fileContent);
         return;
     }
     const fileContent = fs.readFileSync(indexAggregateRepositoryFile, 'utf8');
-    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.repository.ts';`)) {
+    if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.repository';`)) {
         fs.appendFileSync(
             indexAggregateRepositoryFile,
-            `export * from './${lowerCaseAggregateName}.repository.ts';`,
+            `export * from './${lowerCaseAggregateName}.repository';\n`,
         );
     }
 }

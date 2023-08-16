@@ -93,7 +93,7 @@ export function createAggregateFile(input: any) {
                         property.value
                     }) {`,
                 )
-                .writeLine(`${Space8x}if (payload !== undefined) this._props.name = payload;`)
+                .writeLine(`${Space8x}if (payload !== undefined) this._props.${property.key} = payload;`)
                 .writeLine(`${Space4x}}`);
     });
 
