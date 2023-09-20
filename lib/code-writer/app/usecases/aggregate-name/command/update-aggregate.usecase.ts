@@ -27,7 +27,7 @@ export function createAggregateUpdateUseCaseFile(input: {
 
     writer
         .writeLine(`import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`)
-        .writeLine(`import { Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Repository } from '../../../../domain/repositories';`)
@@ -44,7 +44,7 @@ export function createAggregateUpdateUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.UPDATE_${upperCaseAggregateName}, scope: Scope.REQUEST })`,
+            `@Provider({ token: InjectTokens.UseCase.UPDATE_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class Update${aggregateClassName}UseCase<`)
         .writeLine(
@@ -60,10 +60,10 @@ export function createAggregateUpdateUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName}) protected readonly _builder: I${aggregateClassName}Builder,`,
+            `${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName}) protected readonly builder: I${aggregateClassName}Builder,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Repo.${upperCaseAggregateName}) protected readonly _repo: I${aggregateClassName}Repository,`,
+            `${Space8x}@Inject(InjectTokens.Repo.${upperCaseAggregateName}) protected readonly repo: I${aggregateClassName}Repository,`,
         )
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super();`)
@@ -75,14 +75,14 @@ export function createAggregateUpdateUseCaseFile(input: {
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Update${aggregateClassName}UseCase, 'validate'>) => {`,
         )
-        .writeLine(`${Space8x}const entity = await this._repo.getById(input.id);`)
+        .writeLine(`${Space8x}const entity = await this.repo.getById(input.id);`)
         .writeLine(`${Space8x}await entity.update(input);`)
         .writeLine(`${Space8x}return entity;`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}save = async (entity: ResultOf<Update${aggregateClassName}UseCase, 'processing'>) => {`,
         )
-        .writeLine(`${Space8x}await this._repo.update(entity);`)
+        .writeLine(`${Space8x}await this.repo.update(entity);`)
         .writeLine(`${Space8x}return entity;`)
         .writeLine(`${Space4x}};`)
         .writeLine(
@@ -98,7 +98,7 @@ export function createAggregateUpdateUseCaseFile(input: {
     fs.writeFileSync(`${aggregateErrorFolder}/update-${lowerCaseAggregateName}.usecase.ts`, fileContent);
 }
 
-// import { Inject, Provider, Scope } from '@heronjs/common';
+// import { Inject, Provider, Lifecycle } from '@heronjs/common';
 // import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';
 // import { AccountModuleInjectTokens } from '../../../../../../constants';
 // import { IAccountRepository } from '../../../../domain/repositories';
@@ -114,7 +114,7 @@ export function createAggregateUpdateUseCaseFile(input: {
 //     UseCaseContext
 // >;
 
-// @Provider({ token: AccountModuleInjectTokens.UseCase.UPDATE_ACCOUNT, scope: Scope.REQUEST })
+// @Provider({ token: AccountModuleInjectTokens.UseCase.UPDATE_ACCOUNT, scope: Lifecycle.Transient })
 // export class UpdateAccountUseCase<
 //         I extends UpdateAccountUseCaseInput = UpdateAccountUseCaseInput,
 //         O extends UpdateAccountUseCaseOutput = UpdateAccountUseCaseOutput,
@@ -124,7 +124,7 @@ export function createAggregateUpdateUseCaseFile(input: {
 //     implements IUpdateAccountUseCase
 // {
 //     constructor(
-//         @Inject(AccountModuleInjectTokens.Repo.ACCOUNT) protected readonly _repo: IAccountRepository,
+//         @Inject(AccountModuleInjectTokens.Repo.ACCOUNT) protected readonly repo: IAccountRepository,
 //     ) {
 //         super();
 //         this.setMethods(this.validate, this.processing, this.save, this.map);
@@ -135,13 +135,13 @@ export function createAggregateUpdateUseCaseFile(input: {
 //     };
 
 //     processing = async (input: ResultOf<UpdateAccountUseCase, 'validate'>) => {
-//         const account = await this._repo.getById(input.id);
+//         const account = await this.repo.getById(input.id);
 //         await account.update(input);
 //         return account;
 //     };
 
 //     save = async (entity: ResultOf<UpdateAccountUseCase, 'processing'>) => {
-//         await this._repo.update(entity);
+//         await this.repo.update(entity);
 //         return entity;
 //     };
 

@@ -33,9 +33,9 @@ export function createAggregateCountListUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { PaginationInput } from '@cbidigital/aqua';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../../../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain';`)
         .writeLine(
-            `export type CountList${aggregateClassName}UseCaseInput = PaginationInput<${aggregateClassName}DTO>;`,
+            `export type CountList${aggregateClassName}UseCaseInput = PaginationInput<${aggregateClassName}Dto>;`,
         )
         .writeLine(`export type CountList${aggregateClassName}UseCaseOutput = {`)
         .writeLine(`${Space4x}totalCount: number;`)

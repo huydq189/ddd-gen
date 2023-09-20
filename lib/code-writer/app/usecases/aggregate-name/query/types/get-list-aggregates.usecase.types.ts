@@ -32,12 +32,12 @@ export function createAggregateGetListUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { PaginationInput } from '@cbidigital/aqua';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../../../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain';`)
         .writeLine(
             `import { Get${aggregateClassName}UseCaseOutput } from './get-${lowerCaseAggregateName}-by-id.usecase.types';`,
         )
         .writeLine(
-            `export type GetList${aggregateClassName}UseCaseInput = PaginationInput<${aggregateClassName}DTO>;`,
+            `export type GetList${aggregateClassName}UseCaseInput = PaginationInput<${aggregateClassName}Dto>;`,
         )
         .writeLine(
             `export type GetList${aggregateClassName}UseCaseOutput = Get${aggregateClassName}UseCaseOutput[];`,

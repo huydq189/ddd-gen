@@ -29,9 +29,9 @@ export function createAggregateGetListUseCaseFile(input: {
         .writeLine(
             `import { IUseCase, PaginationUtil, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`,
         )
-        .writeLine(`import { Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}DAO } from '../../../../infra/databases';`)
         .writeLine(`import {`)
         .writeLine(`${Space4x}GetList${aggregateClassName}UseCaseInput,`)
@@ -50,7 +50,7 @@ export function createAggregateGetListUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.GET_LIST_${upperCaseAggregateName}, scope: Scope.REQUEST })`,
+            `@Provider({ token: InjectTokens.UseCase.GET_LIST_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class GetList${aggregateClassName}UseCase<`)
         .writeLine(
@@ -65,19 +65,19 @@ export function createAggregateGetListUseCaseFile(input: {
         .writeLine(`${Space4x}implements IGetList${aggregateClassName}UseCase`)
         .writeLine(`{`)
         .writeLine(
-            `${Space4x}constructor(@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly _dao: I${aggregateClassName}DAO) {`,
+            `${Space4x}constructor(@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)
         .writeLine(`${Space4x}}`)
         .writeLine(`${Space4x}validate = async (input: I) => {`)
-        .writeLine(`${Space8x}const model = PaginationUtil.transform<${aggregateClassName}DTO>(input);`)
+        .writeLine(`${Space8x}const model = PaginationUtil.transform<${aggregateClassName}Dto>(input);`)
         .writeLine(`${Space8x}return model;`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<GetList${aggregateClassName}UseCase, 'validate'>) => {`,
         )
-        .writeLine(`${Space8x}return this._dao.find(input);`)
+        .writeLine(`${Space8x}return this.dao.find(input);`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}map = async (dtos: ResultOf<GetList${aggregateClassName}UseCase, 'processing'>) => {`,

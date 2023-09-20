@@ -33,7 +33,7 @@ export function createAggregateCreateUseCaseFile(input: {
 
     writer
         .writeLine(`import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`)
-        .writeLine(`import { Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Repository } from '../../../../domain/repositories';`)
@@ -50,7 +50,7 @@ export function createAggregateCreateUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.CREATE_${upperCaseAggregateName}, scope: Scope.REQUEST })`,
+            `@Provider({ token: InjectTokens.UseCase.CREATE_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class Create${aggregateClassName}UseCase<`)
         .writeLine(
@@ -66,10 +66,10 @@ export function createAggregateCreateUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName}) protected readonly _builder: I${aggregateClassName}Builder,`,
+            `${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName}) protected readonly builder: I${aggregateClassName}Builder,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Repo.${upperCaseAggregateName}) protected readonly _repo: I${aggregateClassName}Repository,`,
+            `${Space8x}@Inject(InjectTokens.Repo.${upperCaseAggregateName}) protected readonly repo: I${aggregateClassName}Repository,`,
         )
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super();`)
@@ -81,14 +81,14 @@ export function createAggregateCreateUseCaseFile(input: {
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Create${aggregateClassName}UseCase, 'validate'>) => {`,
         )
-        .writeLine(`${Space8x}const entity = await this._builder.build();`)
+        .writeLine(`${Space8x}const entity = await this.builder.build();`)
         .writeLine(`${Space8x}await entity.create(input);`)
         .writeLine(`${Space8x}return entity;`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}save = async (entity: ResultOf<Create${aggregateClassName}UseCase, 'processing'>) => {`,
         )
-        .writeLine(`${Space8x}await this._repo.create(entity);`)
+        .writeLine(`${Space8x}await this.repo.create(entity);`)
         .writeLine(`${Space8x}return entity;`)
         .writeLine(`${Space4x}};`)
         .writeLine(

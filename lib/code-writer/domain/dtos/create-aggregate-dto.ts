@@ -20,7 +20,7 @@ export function createAggregateDTOFile(input: any) {
 
     writer.writeLine(`import { Nullable } from '@heronjs/common';`);
 
-    writer.writeLine(`export type ${aggregateClassName}DTO = {`);
+    writer.writeLine(`export type ${aggregateClassName}Dto = {`);
     properties.forEach((property: any) => {
         writer.writeLine(`${Space4x}${property.key}: ${property.value};`);
     });

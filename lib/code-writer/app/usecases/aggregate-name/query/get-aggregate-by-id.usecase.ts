@@ -27,7 +27,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
 
     writer
         .writeLine(`import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`)
-        .writeLine(`import { Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}NotFoundError } from '../../../../domain';`)
         .writeLine(`import { IUnitDAO } from '../../../../infra';`)
@@ -44,7 +44,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.GET_${upperCaseAggregateName}, scope: Scope.REQUEST })`,
+            `@Provider({ token: InjectTokens.UseCase.GET_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class Get${aggregateClassName}UseCase<`)
         .writeLine(
@@ -60,7 +60,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly _dao: I${aggregateClassName}DAO) {`,
+            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)
@@ -71,7 +71,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Get${aggregateClassName}UseCase, 'validate'>) => {`,
         )
-        .writeLine(`${Space8x}const dto = await this._dao.findOne({`)
+        .writeLine(`${Space8x}const dto = await this.dao.findOne({`)
         .writeLine(`${Space12x}filter: {`)
         .writeLine(`${Space16x}id: { $eq: input.id },`)
         .writeLine(`${Space12x}},`)

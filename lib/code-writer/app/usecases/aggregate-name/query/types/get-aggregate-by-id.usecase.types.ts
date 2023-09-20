@@ -34,14 +34,14 @@ export function createAggregateGetByIdUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../../../../../domain/dtos';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain/dtos';`)
         .writeLine(`export const Get${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`)
         .writeLine(`});`)
         .writeLine(
             `export type Get${aggregateClassName}UseCaseInput = z.infer<typeof Get${aggregateClassName}UseCaseInputSchema>;`,
         )
-        .writeLine(`export type Get${aggregateClassName}UseCaseOutput = Partial<${aggregateClassName}DTO>;`);
+        .writeLine(`export type Get${aggregateClassName}UseCaseOutput = Partial<${aggregateClassName}Dto>;`);
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();

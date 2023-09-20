@@ -28,8 +28,8 @@ export function createAggregateBuilderFile(input: any) {
     });
 
     writer
-        .writeLine(`import { DomainEvent, IEntityBuilder } from '@cbidigital/aqua';`)
-        .writeLine(`import { EventHandler, EventLookup, Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { DomainEvent, IEntityBuilder, IDomainEventHandler } from '@cbidigital/aqua';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}DAO } from '../../infra';`)
         .writeLine(
@@ -50,16 +50,16 @@ export function createAggregateBuilderFile(input: any) {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.Builder.${upperCaseAggregateName}, scope: Scope.SINGLETON })`,
+            `@Provider({ token: InjectTokens.Builder.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
         )
         .writeLine(`export class ${aggregateClassName}Builder implements I${aggregateClassName}Builder {`)
         .writeLine(`${Space4x}constructor(`)
-        .writeLine(`${Space8x}@EventLookup(InjectTokens.Service.${upperCaseAggregateName})`)
+        .writeLine(`${Space8x}@Inject(InjectTokens.EventHandler.${upperCaseAggregateName})`)
         .writeLine(
-            `${Space8x}protected readonly _eventHandler: EventHandler<DomainEvent<${aggregateClassName}Props>>,`,
+            `${Space8x}protected readonly eventHandler: IDomainEventHandler<DomainEvent<${aggregateClassName}Props>>,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly _dao: I${aggregateClassName}DAO,`,
+            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO,`,
         )
         .writeLine(`${Space4x}) {}`)
         .blankLine();
@@ -72,7 +72,7 @@ export function createAggregateBuilderFile(input: any) {
         .writeLine(`${Space8x}return new ${aggregateClassName}({`)
         .writeLine(`${Space12x}id,`)
         .writeLine(`${Space12x}props,`)
-        .writeLine(`${Space12x}eventEmitter: this._eventHandler,`)
+        .writeLine(`${Space12x}eventEmitter: this.eventHandler,`)
         .writeLine(`${Space12x}externalProps,`)
         .writeLine(`${Space8x}});`);
     writer.writeLine(`${Space4x}}`);
@@ -88,7 +88,7 @@ export function createAggregateBuilderFile(input: any) {
         .writeLine(`${Space16x}{ length: payload },`)
         .writeLine(`${Space16x}() =>`)
         .writeLine(`${Space20x}new ${aggregateClassName}({`)
-        .writeLine(`${Space24x}eventEmitter: this._eventHandler,`)
+        .writeLine(`${Space24x}eventEmitter: this.eventHandler,`)
         .writeLine(`${Space20x}}),`)
         .writeLine(`${Space12x});`)
         .writeLine(`${Space8x}}`)
@@ -97,7 +97,7 @@ export function createAggregateBuilderFile(input: any) {
         .writeLine(`${Space16x}new ${aggregateClassName}({`)
         .writeLine(`${Space20x}id,`)
         .writeLine(`${Space20x}props,`)
-        .writeLine(`${Space20x}eventEmitter: this._eventHandler,`)
+        .writeLine(`${Space20x}eventEmitter: this.eventHandler,`)
         .writeLine(`${Space20x}externalProps,`)
         .writeLine(`${Space16x}}),`)
         .writeLine(`${Space8x});`)

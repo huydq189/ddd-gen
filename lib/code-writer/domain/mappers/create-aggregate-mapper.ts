@@ -21,29 +21,29 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(`import { BaseMapper, IMapper } from '@cbidigital/aqua';`)
-        .writeLine(`import { Inject, Provider, Scope } from '@heronjs/common';`)
+        .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName} } from '../aggregates';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../builders';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../dtos';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../dtos';`)
         .blankLine();
 
     writer
         .writeLine(
-            `export type I${aggregateClassName}Mapper = IMapper<${aggregateClassName}DTO, I${aggregateClassName}>;`,
+            `export type I${aggregateClassName}Mapper = IMapper<${aggregateClassName}Dto, I${aggregateClassName}>;`,
         )
         .blankLine();
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.Mapper.${upperCaseAggregateName}, scope: Scope.SINGLETON })`,
+            `@Provider({ token: InjectTokens.Mapper.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
         )
         .writeLine(
             `export class ${aggregateClassName}Mapper extends BaseMapper implements I${aggregateClassName}Mapper {`,
         )
         .writeLine(`${Space4x}constructor(`)
         .writeLine(`${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName})`)
-        .writeLine(`${Space8x}protected readonly _${aggregateName}Builder: I${aggregateClassName}Builder,`)
+        .writeLine(`${Space8x}protected readonly ${aggregateName}Builder: I${aggregateClassName}Builder,`)
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space4x}}`)
@@ -51,7 +51,7 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(
-            `${Space4x}async fromEntityToDTO(entity: I${aggregateClassName}): Promise<${aggregateClassName}DTO> {`,
+            `${Space4x}async fromEntityToDTO(entity: I${aggregateClassName}): Promise<${aggregateClassName}Dto> {`,
         )
         .writeLine(`${Space8x}return {`);
     properties.forEach((property: any) => {
@@ -61,9 +61,9 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(
-            `${Space4x}async fromDTOToEntity(dto: ${aggregateClassName}DTO): Promise<I${aggregateClassName}> {`,
+            `${Space4x}async fromDTOToEntity(dto: ${aggregateClassName}Dto): Promise<I${aggregateClassName}> {`,
         )
-        .writeLine(`${Space8x}return this._${aggregateName}Builder.build({`)
+        .writeLine(`${Space8x}return this.${aggregateName}Builder.build({`)
         .writeLine(`${Space12x}id: dto.id,`)
         .writeLine(`${Space12x}props: {`);
     properties.forEach((property: any) => {

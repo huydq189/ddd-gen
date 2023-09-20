@@ -16,10 +16,11 @@ export function createAggregateIndexTypeFile(input: { aggregateName: string; dom
         useTabs: false, // default: false
         useSingleQuote: true, // default: false
     });
-    writer.writeLine(`export * from './${lowerCaseAggregateName}-create.types';`);
-    writer.writeLine(`export * from './${lowerCaseAggregateName}-update.types';`);
-    writer.writeLine(`export * from './${lowerCaseAggregateName}-delete.types';`);
+    // writer.writeLine(`export * from './${lowerCaseAggregateName}-create.types';`);
+    // writer.writeLine(`export * from './${lowerCaseAggregateName}-update.types';`);
+    // writer.writeLine(`export * from './${lowerCaseAggregateName}-delete.types';`);
 
+    writer.writeLine(`export * from './${lowerCaseAggregateName}.types';`);
     const fileContent = writer.toString();
     fs.writeFileSync(`${aggregateErrorFolder}/index.ts`, fileContent);
 }

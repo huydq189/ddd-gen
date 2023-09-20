@@ -23,7 +23,7 @@ export function createAggregateDAOFile(input: any) {
         .writeLine(`import { BaseTable, Column, TABLE_FIELD_DEFAULT_VALUE, Table } from '@cbidigital/aqua';`)
         .writeLine(`import { Nullable } from '@heronjs/common';`)
         .writeLine(`import { TableNames } from '../../../../../constants';`)
-        .writeLine(`import { ${aggregateClassName}DTO } from '../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../domain';`)
         .blankLine();
 
     writer
@@ -33,9 +33,9 @@ export function createAggregateDAOFile(input: any) {
 
     writer
         .writeLine(
-            `export class ${aggregateClassName}Table extends BaseTable<${aggregateClassName}DTO> implements ${aggregateClassName}DTO {`,
+            `export class ${aggregateClassName}Table extends BaseTable<${aggregateClassName}Dto> implements ${aggregateClassName}Dto {`,
         )
-        .writeLine(`${Space4x}@Column({ isPrimaryKey: true })`)
+        .writeLine(`${Space4x}@Column()`)
         .writeLine(`${Space4x}public id: string = TABLE_FIELD_DEFAULT_VALUE;`);
 
     properties.forEach((property: any) => {

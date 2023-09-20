@@ -22,28 +22,28 @@ export function createAggregateTableFile(input: any) {
     writer
         .writeLine(`import { BaseDao, IBaseDao, IQueryUtil } from '@cbidigital/aqua';`)
         .writeLine(
-            `import { Dao, DatabaseLookup, Inject, Logger, ModuleDatabase, Scope } from '@heronjs/common';`,
+            `import { Dao, DataSource, Inject, Lifecycle, Logger, ModuleDataSource } from '@heronjs/common';`,
         )
         .writeLine(`import { KnexClient } from '@heronjs/core';`)
         .writeLine(`import { InjectTokens, TableNames } from '../../../../../constants';`)
         .writeLine(
-            `import { ${aggregateClassName}CodeAlreadyExistError, ${aggregateClassName}DTO } from '../../../domain';`,
+            `import { ${aggregateClassName}CodeAlreadyExistError, ${aggregateClassName}Dto } from '../../../domain';`,
         )
         .writeLine(`import { ${capitalizeFirstLetter(domainName)}Constraints } from '../consts';`);
 
     writer
-        .writeLine(`export type I${aggregateClassName}DAO = IBaseDao<${aggregateClassName}DTO>;`)
+        .writeLine(`export type I${aggregateClassName}DAO = IBaseDao<${aggregateClassName}Dto>;`)
         .blankLine();
 
     writer
-        .writeLine(`@Dao({ token: InjectTokens.Dao.${upperCaseAggregateName}, scope: Scope.SINGLETON })`)
+        .writeLine(`@Dao({ token: InjectTokens.Dao.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`)
         .writeLine(
-            `export class ${aggregateClassName}DAO extends BaseDao<${aggregateClassName}DTO> implements I${aggregateClassName}DAO {`,
+            `export class ${aggregateClassName}DAO extends BaseDao<${aggregateClassName}Dto> implements I${aggregateClassName}DAO {`,
         )
         .writeLine(`${Space4x}constructor(`)
-        .writeLine(`${Space8x}@DatabaseLookup() db: ModuleDatabase<KnexClient>,`)
+        .writeLine(`${Space8x}@DataSource() db: ModuleDataSource<KnexClient>,`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Common.${domainName.toUpperCase()}_QUERY_UTIL) queryUtil: IQueryUtil<${aggregateClassName}DTO>,`,
+            `${Space8x}@Inject(InjectTokens.Common.${domainName.toUpperCase()}_QUERY_UTIL) queryUtil: IQueryUtil<${aggregateClassName}Dto>,`,
         )
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super({ db, queryUtil, tableName: TableNames.${upperCaseAggregateName} });`)
@@ -51,7 +51,7 @@ export function createAggregateTableFile(input: any) {
         .blankLine();
 
     writer
-        .writeLine(`${Space4x}protected _transformError(err: any) {`)
+        .writeLine(`${Space4x}protected transformError(err: any) {`)
         .writeLine(`${Space8x}const logger = new Logger(this.constructor.name);`)
         .writeLine(`${Space8x}logger.error(err);`)
         .writeLine(`${Space8x}return err;`)

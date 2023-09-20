@@ -79,7 +79,7 @@ export function createAggregateFile(input: any) {
         if (property.key !== 'id')
             writer
                 .writeLine(`${Space4x}public get ${property.key}(): ${property.value} {`)
-                .writeLine(`${Space8x}return this._props.${property.key};`)
+                .writeLine(`${Space8x}return this.props.${property.key};`)
                 .writeLine(`${Space4x}}`);
     });
 
@@ -93,7 +93,7 @@ export function createAggregateFile(input: any) {
                         property.value
                     }) {`,
                 )
-                .writeLine(`${Space8x}if (payload !== undefined) this._props.${property.key} = payload;`)
+                .writeLine(`${Space8x}if (payload !== undefined) this.props.${property.key} = payload;`)
                 .writeLine(`${Space4x}}`);
     });
 
@@ -103,7 +103,6 @@ export function createAggregateFile(input: any) {
         .writeLine(
             `${Space4x}public async create(payload: Create${aggregateClassName}Input): Promise<void> {`,
         )
-        .writeLine(`${Space8x}const model = Create${aggregateClassName}InputSchema.parse(payload);`)
         .writeLine(`${Space8x}this.setId(EntityIdUtil.randomUUID());`)
         .writeLine(`${Space8x}this.setCode(EntityIdUtil.randomUUID());`);
 
@@ -128,11 +127,9 @@ export function createAggregateFile(input: any) {
 
     // update
 
-    writer
-        .writeLine(
-            `${Space4x}public async update(payload: Update${aggregateClassName}Input): Promise<void> {`,
-        )
-        .writeLine(`${Space8x}const model = Update${aggregateClassName}InputSchema.parse(payload);`);
+    writer.writeLine(
+        `${Space4x}public async update(payload: Update${aggregateClassName}Input): Promise<void> {`,
+    );
 
     properties.forEach((property: any) => {
         if (
