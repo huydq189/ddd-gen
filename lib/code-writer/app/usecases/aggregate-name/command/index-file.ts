@@ -17,9 +17,9 @@ export function createAggregateUseCaseCommandIndexFile(input: { aggregateName: s
             useTabs: false, // default: false
             useSingleQuote: true, // default: false
         });
-        writer.writeLine(`export * from './create-${lowerCaseAggregateName}.usecase.ts';`);
-        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.usecase.ts';`);
-        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.usecase.ts';`);
+        writer.writeLine(`export * from './create-${lowerCaseAggregateName}.usecase';`);
+        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.usecase';`);
+        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.usecase';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
         return;
@@ -28,13 +28,13 @@ export function createAggregateUseCaseCommandIndexFile(input: { aggregateName: s
     if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './create-${lowerCaseAggregateName}.usecase.ts';\n`,
+            `export * from './create-${lowerCaseAggregateName}.usecase';\n`,
         );
     }
     if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
             indexAggregateDTOFile,
-            `export * from './update-${lowerCaseAggregateName}.usecase.ts';\n`,
+            `export * from './update-${lowerCaseAggregateName}.usecase';\n`,
         );
     }
     if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.usecase';`)) {

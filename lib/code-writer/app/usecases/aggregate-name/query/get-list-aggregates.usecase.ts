@@ -32,7 +32,7 @@ export function createAggregateGetListUseCaseFile(input: {
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain';`)
-        .writeLine(`import { I${aggregateClassName}DAO } from '../../../../infra/databases';`)
+        .writeLine(`import { I${aggregateClassName}Dao } from '../../../../infra/databases';`)
         .writeLine(`import {`)
         .writeLine(`${Space4x}GetList${aggregateClassName}UseCaseInput,`)
         .writeLine(`${Space4x}GetList${aggregateClassName}UseCaseOutput,`)
@@ -65,7 +65,7 @@ export function createAggregateGetListUseCaseFile(input: {
         .writeLine(`${Space4x}implements IGetList${aggregateClassName}UseCase`)
         .writeLine(`{`)
         .writeLine(
-            `${Space4x}constructor(@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO) {`,
+            `${Space4x}constructor(@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)

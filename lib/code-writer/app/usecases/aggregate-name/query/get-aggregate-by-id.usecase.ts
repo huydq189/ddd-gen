@@ -30,15 +30,15 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}NotFoundError } from '../../../../domain';`)
-        .writeLine(`import { IUnitDAO } from '../../../../infra';`)
+        .writeLine(`import { I${aggregateClassName}Dao } from '../../../../infra';`)
         .writeLine(
-            `import { GetUnitUseCaseInput, GetUnitUseCaseInputSchema, GetUnitUseCaseOutput } from './types';`,
+            `import { Get${aggregateClassName}UseCaseInput, Get${aggregateClassName}UseCaseInputSchema, Get${aggregateClassName}UseCaseOutput } from './types';`,
         )
         .blankLine();
 
     writer
         .writeLine(
-            `export type IGetUnitUseCase = IUseCase<GetUnitUseCaseInput, GetUnitUseCaseOutput, UseCaseContext>;`,
+            `export type IGet${aggregateClassName}UseCase = IUseCase<Get${aggregateClassName}UseCaseInput, Get${aggregateClassName}UseCaseOutput, UseCaseContext>;`,
         )
         .blankLine();
 
@@ -60,13 +60,13 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO) {`,
+            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)
         .writeLine(`${Space4x}}`)
         .writeLine(`${Space4x}validate = async (input: I) => {`)
-        .writeLine(`${Space8x}return GetUnitUseCaseInputSchema.parse(input);`)
+        .writeLine(`${Space8x}return Get${aggregateClassName}UseCaseInputSchema.parse(input);`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Get${aggregateClassName}UseCase, 'validate'>) => {`,
@@ -76,13 +76,13 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`${Space16x}id: { $eq: input.id },`)
         .writeLine(`${Space12x}},`)
         .writeLine(`${Space8x}});`)
-        .writeLine(`${Space8x}if (!dto) throw new UnitNotFoundError();`)
+        .writeLine(`${Space8x}if (!dto) throw new ${aggregateClassName}NotFoundError();`)
         .writeLine(`${Space8x}return dto;`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}map = async (dtos: ResultOf<Get${aggregateClassName}UseCase, 'processing'>) => {`,
         )
-        .writeLine(`${Space8x}const result: GetUnitUseCaseOutput = {`)
+        .writeLine(`${Space8x}const result: Get${aggregateClassName}UseCaseOutput = {`)
         .writeLine(`${Space12x}...dto,`)
         .writeLine(`${Space8x}};`)
         .writeLine(`${Space8x}return <O>result;`)

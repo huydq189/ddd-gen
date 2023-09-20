@@ -26,19 +26,16 @@ export function createAggregateTableFile(input: any) {
         )
         .writeLine(`import { KnexClient } from '@heronjs/core';`)
         .writeLine(`import { InjectTokens, TableNames } from '../../../../../constants';`)
-        .writeLine(
-            `import { ${aggregateClassName}CodeAlreadyExistError, ${aggregateClassName}Dto } from '../../../domain';`,
-        )
-        .writeLine(`import { ${capitalizeFirstLetter(domainName)}Constraints } from '../consts';`);
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../domain';`);
 
     writer
-        .writeLine(`export type I${aggregateClassName}DAO = IBaseDao<${aggregateClassName}Dto>;`)
+        .writeLine(`export type I${aggregateClassName}Dao = IBaseDao<${aggregateClassName}Dto>;`)
         .blankLine();
 
     writer
         .writeLine(`@Dao({ token: InjectTokens.Dao.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`)
         .writeLine(
-            `export class ${aggregateClassName}DAO extends BaseDao<${aggregateClassName}Dto> implements I${aggregateClassName}DAO {`,
+            `export class ${aggregateClassName}Dao extends BaseDao<${aggregateClassName}Dto> implements I${aggregateClassName}Dao {`,
         )
         .writeLine(`${Space4x}constructor(`)
         .writeLine(`${Space8x}@DataSource() db: ModuleDataSource<KnexClient>,`)

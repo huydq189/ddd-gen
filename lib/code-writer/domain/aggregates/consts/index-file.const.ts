@@ -17,8 +17,8 @@ export function createAggregateIndexConstFile(input: any) {
         useSingleQuote: true, // default: false
     });
 
-    writer.writeLine(`export * from './${lowerCaseAggregateName}-error-codes.const';`);
-    writer.writeLine(`export * from './${lowerCaseAggregateName}-event-names.const';`);
+    writer.writeLine(`export * from './${lowerCaseAggregateName}-error-codes.consts';`);
+    writer.writeLine(`export * from './${lowerCaseAggregateName}-event-names.consts';`);
 
     const fileContent = writer.toString();
     fs.writeFileSync(`${aggregateConstFolder}/index.ts`, fileContent);

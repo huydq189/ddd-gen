@@ -42,7 +42,7 @@ export function createAggregateTypeFile(input: {
     properties.forEach((property: any) => {
         writer.writeLine(`${Space4x}${property.key}: ${property.value};`);
     });
-    writer.writeLine(`});`).blankLine();
+    writer.writeLine(`};`).blankLine();
 
     writer
         .writeLine(

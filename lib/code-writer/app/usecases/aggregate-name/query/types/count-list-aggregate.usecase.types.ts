@@ -4,7 +4,7 @@ import { createFolderIfNotExists } from '../../../../../../utils/create-folder-i
 import { Space4x, createClassName } from '../../../../../../utils/string';
 
 // import { PaginationInput } from '@cbidigital/aqua';
-// import { TimesheetDto } from '../../../../../domain/dtos';
+// import { TimesheetDto } from '../../../../domain/dtos';
 
 // export type CountListTimesheetUseCaseInput = PaginationInput<TimesheetDto>;
 // export type CountListTimesheetUseCaseOutput = {
@@ -33,7 +33,7 @@ export function createAggregateCountListUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { PaginationInput } from '@cbidigital/aqua';`)
-        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain';`)
         .writeLine(
             `export type CountList${aggregateClassName}UseCaseInput = PaginationInput<${aggregateClassName}Dto>;`,
         )

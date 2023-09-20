@@ -4,14 +4,12 @@ import {
     createAggregateCodeAlreadyExistErrorFile,
     createAggregateCountListUseCaseFile,
     createAggregateCountListUseCaseTypeFile,
-    createAggregateCreateInputFile,
     createAggregateCreateUseCaseFile,
     createAggregateCreateUseCaseTypeFile,
-    createAggregateDAOFile,
-    createAggregateDAOIndexFile,
     createAggregateDTOFile,
     createAggregateDTOIndexFile,
-    createAggregateDeleteInputFile,
+    createAggregateDaoFile,
+    createAggregateDaoIndexFile,
     createAggregateDeleteUseCaseFile,
     createAggregateDeleteUseCaseTypeFile,
     createAggregateErrorCodesConstFile,
@@ -32,13 +30,16 @@ import {
     createAggregateRepositoryIndexFile,
     createAggregateTableFile,
     createAggregateTableIndexFile,
-    createAggregateUpdateInputFile,
+    createAggregateTypeFile,
     createAggregateUpdateUseCaseFile,
     createAggregateUpdateUseCaseTypeFile,
     createAggregateUseCaseCommandIndexFile,
     createAggregateUseCaseCommandTypeIndexFile,
     createAggregateUseCaseQueryIndexFile,
     createAggregateUseCaseQueryTypeIndexFile,
+    createDomainAggregateIndexFile,
+    createDomainIndexFile,
+    createInfraIndexFile,
 } from '../lib/code-writer';
 import { preprocessing, readExcelFile } from '../lib/utils/excel';
 
@@ -53,6 +54,7 @@ export const generateRestAPI = function (path: string, options: any) {
         properties,
     };
     // src/features/<domain-name>
+    createDomainIndexFile(input);
     // ├── domain/aggregates/<aggregate-name>
     // │   └── consts
     // │         ├── error-codes.const.ts
@@ -70,15 +72,18 @@ export const generateRestAPI = function (path: string, options: any) {
     createAggregateIndexErrorFile(input);
     // │   └── types
     // │         └── index.ts
-    // │         └── aggregate-create.types
-    // |         └── aggregate-delete.types
-    // |         └── aggregate-update.types
-    createAggregateCreateInputFile(input);
-    createAggregateUpdateInputFile(input);
-    createAggregateDeleteInputFile(input);
+    // |         └── aggregate.types
+    //! │         └── aggregate-create.types
+    //! |         └── aggregate-delete.types
+    //! |         └── aggregate-update.types
+    // createAggregateCreateInputFile(input);
+    // createAggregateUpdateInputFile(input);
+    // createAggregateDeleteInputFile(input);
+    createAggregateTypeFile(input);
     createAggregateIndexTypeFile(input);
     // │   └── <aggregate-name>.ts
     createAggregateFile(input);
+    createDomainAggregateIndexFile(input);
     // ├── domain
     // │   └── builders
     // │         ├── <aggregate-name>.dto.ts
@@ -113,8 +118,9 @@ export const generateRestAPI = function (path: string, options: any) {
     // │   └── daos
     // │         ├── <aggregate-name>.dao.ts
     // │         └── index.ts
-    createAggregateDAOFile(input);
-    createAggregateDAOIndexFile(input);
+    createAggregateDaoFile(input);
+    createAggregateDaoIndexFile(input);
+    createInfraIndexFile(input);
     // ├── app/usecases/<aggregate-name>
     // │   └── index.ts
     // │   └── command

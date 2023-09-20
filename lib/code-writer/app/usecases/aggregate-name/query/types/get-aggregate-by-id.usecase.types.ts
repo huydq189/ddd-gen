@@ -4,7 +4,7 @@ import { createFolderIfNotExists } from '../../../../../../utils/create-folder-i
 import { Space4x, createClassName } from '../../../../../../utils/string';
 
 // import { z } from 'zod';
-// import { TimesheetDto } from '../../../../../domain/dtos';
+// import { TimesheetDto } from '../../../../domain/dtos';
 
 // export const GetTimesheetUseCaseInputSchema = z.object({
 //     id: z.string().uuid(),
@@ -34,7 +34,7 @@ export function createAggregateGetByIdUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain/dtos';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain/dtos';`)
         .writeLine(`export const Get${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`)
         .writeLine(`});`)

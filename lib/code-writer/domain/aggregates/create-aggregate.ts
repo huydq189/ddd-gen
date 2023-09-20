@@ -115,7 +115,7 @@ export function createAggregateFile(input: any) {
             property.key !== 'deletedAt'
         )
             writer.writeLine(
-                `${Space8x}this.set${capitalizeFirstLetter(property.key)}(model.${property.key});`,
+                `${Space8x}this.set${capitalizeFirstLetter(property.key)}(payload.${property.key});`,
             );
     });
 
@@ -140,13 +140,13 @@ export function createAggregateFile(input: any) {
             property.key !== 'deletedAt'
         )
             writer.writeLine(
-                `${Space8x}this.set${capitalizeFirstLetter(property.key)}(model.${property.key});`,
+                `${Space8x}this.set${capitalizeFirstLetter(property.key)}(payload.${property.key});`,
             );
     });
 
     writer
         .writeLine(`${Space8x}this.setUpdatedAt(new Date());`)
-        .writeLine(`${Space8x}this.addDomainEvent(UnitEventNames.UPDATE);`)
+        .writeLine(`${Space8x}this.addDomainEvent(${aggregateClassName}EventNames.UPDATE);`)
         .writeLine(`${Space4x}}`)
         .blankLine();
 

@@ -31,7 +31,7 @@ export function createAggregateBuilderFile(input: any) {
         .writeLine(`import { DomainEvent, IEntityBuilder, IDomainEventHandler } from '@cbidigital/aqua';`)
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../constants';`)
-        .writeLine(`import { I${aggregateClassName}DAO } from '../../infra';`)
+        .writeLine(`import { I${aggregateClassName}Dao } from '../../infra';`)
         .writeLine(
             `import { I${aggregateClassName}, ${aggregateClassName}, ${aggregateClassName}Props } from '../aggregates';`,
         );
@@ -59,7 +59,7 @@ export function createAggregateBuilderFile(input: any) {
             `${Space8x}protected readonly eventHandler: IDomainEventHandler<DomainEvent<${aggregateClassName}Props>>,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}DAO,`,
+            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao,`,
         )
         .writeLine(`${Space4x}) {}`)
         .blankLine();

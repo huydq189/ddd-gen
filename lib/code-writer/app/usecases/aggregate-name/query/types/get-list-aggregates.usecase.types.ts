@@ -4,7 +4,7 @@ import { createFolderIfNotExists } from '../../../../../../utils/create-folder-i
 import { createClassName } from '../../../../../../utils/string';
 
 // import { PaginationInput } from '@cbidigital/aqua';
-// import { TimesheetDto } from '../../../../../domain';
+// import { TimesheetDto } from '../../../../domain';
 // import { GetTimesheetUseCaseOutput } from './get-timesheet-by-id.types';
 
 // export type GetListTimesheetUseCaseInput = PaginationInput<TimesheetDto>;
@@ -32,7 +32,7 @@ export function createAggregateGetListUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { PaginationInput } from '@cbidigital/aqua';`)
-        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../../domain';`)
+        .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain';`)
         .writeLine(
             `import { Get${aggregateClassName}UseCaseOutput } from './get-${lowerCaseAggregateName}-by-id.usecase.types';`,
         )

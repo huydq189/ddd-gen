@@ -3,12 +3,6 @@ import fs from 'fs';
 import { createFolderIfNotExists } from '../../../../../../utils/create-folder-if-not-exists';
 import { Space4x, createClassName } from '../../../../../../utils/string';
 
-// import { DeleteUnitInput, DeleteUnitInputSchema } from '../../../../../domain';
-
-// export type DeleteUnitUseCaseInput = DeleteUnitInput;
-// export const DeleteUnitUseCaseInputSchema = DeleteUnitInputSchema;
-// export type DeleteUnitUseCaseOutput = void;
-
 export function createAggregateDeleteUseCaseTypeFile(input: {
     aggregateName: string;
     domainName: string;
@@ -19,8 +13,8 @@ export function createAggregateDeleteUseCaseTypeFile(input: {
     const aggregateClassName = createClassName(aggregateName);
 
     /****************************************** CREATE FOLDER ******************************************/
-    const aggregateErrorFolder = `src/features/${domainName.toLowerCase()}/app/usecases/${lowerCaseAggregateName}/command/types`;
-    createFolderIfNotExists(aggregateErrorFolder);
+    const aggregateFolder = `src/features/${domainName.toLowerCase()}/app/usecases/${lowerCaseAggregateName}/command/types`;
+    createFolderIfNotExists(aggregateFolder);
 
     /****************************************** FILE CONTENT ******************************************/
     const writer = new mod.default({
@@ -31,18 +25,16 @@ export function createAggregateDeleteUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(
-            `import { Delete${aggregateClassName}Input, Delete${aggregateClassName}InputSchema } from '../../../../../domain';`,
-        )
+        .writeLine(`import { Delete${aggregateClassName}Input } from '../../../../domain';`)
+        .blankLine()
         .writeLine(`export type Delete${aggregateClassName}UseCaseInput = Delete${aggregateClassName}Input;`)
-        .writeLine(
-            `export const Delete${aggregateClassName}UseCaseInputSchema = Delete${aggregateClassName}InputSchema.extend({`,
-        )
+        .blankLine()
+        .writeLine(`export type Delete${aggregateClassName}UseCaseOutput = void;`)
+        .writeLine(`export const Delete${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`)
-        .writeLine(`});`)
-        .writeLine(`export type Delete${aggregateClassName}UseCaseOutput = void;`);
+        .writeLine(`});`);
 
     /****************************************** WRITE FILE TO DISK ******************************************/
     const fileContent = writer.toString();
-    fs.writeFileSync(`${aggregateErrorFolder}/delete-${lowerCaseAggregateName}.types.ts`, fileContent);
+    fs.writeFileSync(`${aggregateFolder}/delete-${lowerCaseAggregateName}.types.ts`, fileContent);
 }
