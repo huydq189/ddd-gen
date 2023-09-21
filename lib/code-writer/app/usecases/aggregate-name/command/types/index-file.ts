@@ -12,9 +12,9 @@ export function createAggregateUseCaseCommandTypeIndexFile(input: {
     /****************************************** CREATE FOLDER ******************************************/
     const aggregateFolder = `src/features/${domainName.toLowerCase()}/app/usecases/${lowerCaseAggregateName}/command/types`;
     createFolderIfNotExists(aggregateFolder);
-    const indexAggregateDTOFile = `${aggregateFolder}/index.ts`;
+    const indexAggregateDtoFile = `${aggregateFolder}/index.ts`;
 
-    if (!fs.existsSync(indexAggregateDTOFile)) {
+    if (!fs.existsSync(indexAggregateDtoFile)) {
         const writer = new mod.default({
             // optional options
             useTabs: false, // default: false
@@ -24,25 +24,25 @@ export function createAggregateUseCaseCommandTypeIndexFile(input: {
         writer.writeLine(`export * from './update-${lowerCaseAggregateName}.types.ts';`);
         writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.types.ts';`);
         const fileContent = writer.toString();
-        fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
+        fs.writeFileSync(`${indexAggregateDtoFile}`, fileContent);
         return;
     }
-    const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
+    const fileContent = fs.readFileSync(indexAggregateDtoFile, 'utf8');
     if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './create-${lowerCaseAggregateName}.types';\n`,
         );
     }
     if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './update-${lowerCaseAggregateName}.types';\n`,
         );
     }
     if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './delete-${lowerCaseAggregateName}.types';\n`,
         );
     }

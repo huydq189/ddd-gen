@@ -25,12 +25,12 @@ export function createAggregateDeleteUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(`import { Delete${aggregateClassName}Input } from '../../../../domain';`)
+        .writeLine(`import { Delete${aggregateClassName}Input } from '../../../../../domain';`)
         .blankLine()
         .writeLine(`export type Delete${aggregateClassName}UseCaseInput = Delete${aggregateClassName}Input;`)
         .blankLine()
         .writeLine(`export type Delete${aggregateClassName}UseCaseOutput = void;`)
-        .writeLine(`export const Delete${aggregateClassName}UseCaseInputSchema = z.object({`)
+        .writeLine(`export const delete${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`)
         .writeLine(`});`);
 

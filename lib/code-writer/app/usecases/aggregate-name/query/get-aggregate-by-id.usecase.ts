@@ -26,13 +26,15 @@ export function createAggregateGetByIdUseCaseFile(input: {
     });
 
     writer
-        .writeLine(`import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`)
+        .writeLine(
+            `import { IUseCase, ResultOf, UseCase, UseCaseContext, ValidatorUtil } from '@cbidigital/aqua';`,
+        )
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}NotFoundError } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Dao } from '../../../../infra';`)
         .writeLine(
-            `import { Get${aggregateClassName}UseCaseInput, Get${aggregateClassName}UseCaseInputSchema, Get${aggregateClassName}UseCaseOutput } from './types';`,
+            `import { Get${aggregateClassName}UseCaseInput, get${aggregateClassName}UseCaseInputSchema, Get${aggregateClassName}UseCaseOutput } from './types';`,
         )
         .blankLine();
 
@@ -66,7 +68,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)
         .writeLine(`${Space4x}}`)
         .writeLine(`${Space4x}validate = async (input: I) => {`)
-        .writeLine(`${Space8x}return Get${aggregateClassName}UseCaseInputSchema.parse(input);`)
+        .writeLine(`${Space8x}return ValidatorUtil.parse(get${aggregateClassName}UseCaseInputSchema, input);`)
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Get${aggregateClassName}UseCase, 'validate'>) => {`,

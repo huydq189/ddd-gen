@@ -9,9 +9,9 @@ export function createAggregateUseCaseCommandIndexFile(input: { aggregateName: s
     /****************************************** CREATE FOLDER ******************************************/
     const aggregateFolder = `src/features/${domainName.toLowerCase()}/app/usecases/${lowerCaseAggregateName}/command`;
     createFolderIfNotExists(aggregateFolder);
-    const indexAggregateDTOFile = `${aggregateFolder}/index.ts`;
+    const indexAggregateDtoFile = `${aggregateFolder}/index.ts`;
 
-    if (!fs.existsSync(indexAggregateDTOFile)) {
+    if (!fs.existsSync(indexAggregateDtoFile)) {
         const writer = new mod.default({
             // optional options
             useTabs: false, // default: false
@@ -21,25 +21,25 @@ export function createAggregateUseCaseCommandIndexFile(input: { aggregateName: s
         writer.writeLine(`export * from './update-${lowerCaseAggregateName}.usecase';`);
         writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.usecase';`);
         const fileContent = writer.toString();
-        fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
+        fs.writeFileSync(`${indexAggregateDtoFile}`, fileContent);
         return;
     }
-    const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
+    const fileContent = fs.readFileSync(indexAggregateDtoFile, 'utf8');
     if (!fileContent.includes(`export * from './create-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './create-${lowerCaseAggregateName}.usecase';\n`,
         );
     }
     if (!fileContent.includes(`export * from './update-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './update-${lowerCaseAggregateName}.usecase';\n`,
         );
     }
     if (!fileContent.includes(`export * from './delete-${lowerCaseAggregateName}.usecase';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './delete-${lowerCaseAggregateName}.usecase';\n`,
         );
     }

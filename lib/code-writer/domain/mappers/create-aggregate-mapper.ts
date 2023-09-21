@@ -51,7 +51,7 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(
-            `${Space4x}async fromEntityToDTO(entity: I${aggregateClassName}): Promise<${aggregateClassName}Dto> {`,
+            `${Space4x}async fromEntityToDto(entity: I${aggregateClassName}): Promise<${aggregateClassName}Dto> {`,
         )
         .writeLine(`${Space8x}return {`);
     properties.forEach((property: any) => {
@@ -61,7 +61,7 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(
-            `${Space4x}async fromDTOToEntity(dto: ${aggregateClassName}Dto): Promise<I${aggregateClassName}> {`,
+            `${Space4x}async fromDtoToEntity(dto: ${aggregateClassName}Dto): Promise<I${aggregateClassName}> {`,
         )
         .writeLine(`${Space8x}return this.${aggregateName}Builder.build({`)
         .writeLine(`${Space12x}id: dto.id,`)

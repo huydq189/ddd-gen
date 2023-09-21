@@ -26,13 +26,15 @@ export function createAggregateDeleteUseCaseFile(input: {
     });
 
     writer
-        .writeLine(`import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`)
+        .writeLine(
+            `import { IUseCase, ResultOf, UseCase, UseCaseContext, ValidatorUtil } from '@cbidigital/aqua';`,
+        )
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
         .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Repository } from '../../../../domain/repositories';`)
         .writeLine(
-            `import { Delete${aggregateClassName}UseCaseInput, Delete${aggregateClassName}UseCaseInputSchema, Delete${aggregateClassName}UseCaseOutput } from './types';`,
+            `import { Delete${aggregateClassName}UseCaseInput, delete${aggregateClassName}UseCaseInputSchema, Delete${aggregateClassName}UseCaseOutput } from './types';`,
         )
         .blankLine();
 
@@ -70,7 +72,9 @@ export function createAggregateDeleteUseCaseFile(input: {
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.save, this.map);`)
         .writeLine(`${Space4x}}`)
         .writeLine(`${Space4x}validate = async (input: I) => {`)
-        .writeLine(`${Space8x}return Delete${aggregateClassName}UseCaseInputSchema.parse(input);`)
+        .writeLine(
+            `${Space8x}return ValidatorUtil.parse(delete${aggregateClassName}UseCaseInputSchema, input);`,
+        )
         .writeLine(`${Space4x}};`)
         .writeLine(
             `${Space4x}processing = async (input: ResultOf<Delete${aggregateClassName}UseCase, 'validate'>) => {`,
@@ -97,55 +101,3 @@ export function createAggregateDeleteUseCaseFile(input: {
     const fileContent = writer.toString();
     fs.writeFileSync(`${aggregateErrorFolder}/delete-${lowerCaseAggregateName}.usecase.ts`, fileContent);
 }
-
-// import { Inject, Provider, Lifecycle } from '@heronjs/common';
-// import { IUseCase, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';
-// import { AccountModuleInjectTokens } from '../../../../../../constants';
-// import { IAccountRepository } from '../../../../domain/repositories';
-// import {
-//     UpdateAccountUseCaseInput,
-//     UpdateAccountUseCaseInputSchema,
-//     UpdateAccountUseCaseOutput,
-// } from './types';
-
-// export type IUpdateAccountUseCase = IUseCase<
-//     UpdateAccountUseCaseInput,
-//     UpdateAccountUseCaseOutput,
-//     UseCaseContext
-// >;
-
-// @Provider({ token: AccountModuleInjectTokens.UseCase.UPDATE_ACCOUNT, scope: Lifecycle.Transient })
-// export class UpdateAccountUseCase<
-//         I extends UpdateAccountUseCaseInput = UpdateAccountUseCaseInput,
-//         O extends UpdateAccountUseCaseOutput = UpdateAccountUseCaseOutput,
-//         C extends UseCaseContext = UseCaseContext,
-//     >
-//     extends UseCase<I, O, C>
-//     implements IUpdateAccountUseCase
-// {
-//     constructor(
-//         @Inject(AccountModuleInjectTokens.Repo.ACCOUNT) protected readonly repo: IAccountRepository,
-//     ) {
-//         super();
-//         this.setMethods(this.validate, this.processing, this.save, this.map);
-//     }
-
-//     validate = async (input: I) => {
-//         return UpdateAccountUseCaseInputSchema.parse(input);
-//     };
-
-//     processing = async (input: ResultOf<UpdateAccountUseCase, 'validate'>) => {
-//         const account = await this.repo.getById(input.id);
-//         await account.update(input);
-//         return account;
-//     };
-
-//     save = async (entity: ResultOf<UpdateAccountUseCase, 'processing'>) => {
-//         await this.repo.update(entity);
-//         return entity;
-//     };
-
-//     map = async () => {
-//         return <O>undefined;
-//     };
-// }

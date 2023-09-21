@@ -40,7 +40,13 @@ export function createAggregateTypeFile(input: {
     writer.writeLine(`export type Create${aggregateClassName}Input = {`);
 
     properties.forEach((property: any) => {
-        writer.writeLine(`${Space4x}${property.key}: ${property.value};`);
+        if (
+            property.key !== 'id' &&
+            property.key !== 'createdAt' &&
+            property.key !== 'updatedAt' &&
+            property.key !== 'deletedAt'
+        )
+            writer.writeLine(`${Space4x}${property.key}: ${property.value};`);
     });
     writer.writeLine(`};`).blankLine();
 
@@ -52,10 +58,7 @@ export function createAggregateTypeFile(input: {
 
     writer
         .writeLine(`export type Delete${aggregateClassName}Input = {`)
-        .writeLine(
-            `id: string;
-    `,
-        )
+        .writeLine(`${Space4x}id: string;`)
         .writeLine(`};`);
 
     /****************************************** WRITE FILE TO DISK ******************************************/

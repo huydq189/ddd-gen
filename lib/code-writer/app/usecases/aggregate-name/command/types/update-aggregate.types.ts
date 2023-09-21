@@ -41,12 +41,12 @@ export function createAggregateUpdateUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(`import { Update${aggregateClassName}Input } from '../../../../domain';`)
+        .writeLine(`import { Update${aggregateClassName}Input } from '../../../../../domain';`)
         .blankLine()
         .writeLine(`export type Update${aggregateClassName}UseCaseInput = Update${aggregateClassName}Input;`)
         .blankLine()
         .writeLine(`export type Update${aggregateClassName}UseCaseOutput = void;`)
-        .writeLine(`export const Update${aggregateClassName}UseCaseInputSchema = z.object({`)
+        .writeLine(`export const update${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`);
 
     properties.forEach((property: any) => {

@@ -2,16 +2,16 @@ import * as mod from 'code-block-writer';
 import fs from 'fs';
 import { createFolderIfNotExists } from '../../../utils/create-folder-if-not-exists';
 
-export function createAggregateDTOIndexFile(input: { aggregateName: string; domainName: string }) {
+export function createAggregateDtoIndexFile(input: { aggregateName: string; domainName: string }) {
     const { aggregateName, domainName } = input;
     const lowerCaseAggregateName = aggregateName.toLowerCase();
 
     /****************************************** CREATE FOLDER ******************************************/
     const aggregateFolder = `src/features/${domainName.toLowerCase()}/domain/dtos`;
     createFolderIfNotExists(aggregateFolder);
-    const indexAggregateDTOFile = `${aggregateFolder}/index.ts`;
+    const indexAggregateDtoFile = `${aggregateFolder}/index.ts`;
 
-    if (!fs.existsSync(indexAggregateDTOFile)) {
+    if (!fs.existsSync(indexAggregateDtoFile)) {
         const writer = new mod.default({
             // optional options
             useTabs: false, // default: false
@@ -19,11 +19,11 @@ export function createAggregateDTOIndexFile(input: { aggregateName: string; doma
         });
         writer.writeLine(`export * from './${lowerCaseAggregateName}.dto';`);
         const fileContent = writer.toString();
-        fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
+        fs.writeFileSync(`${indexAggregateDtoFile}`, fileContent);
         return;
     }
-    const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
+    const fileContent = fs.readFileSync(indexAggregateDtoFile, 'utf8');
     if (!fileContent.includes(`export * from './${lowerCaseAggregateName}.dto';`)) {
-        fs.appendFileSync(indexAggregateDTOFile, `export * from './${lowerCaseAggregateName}.dto';\n`);
+        fs.appendFileSync(indexAggregateDtoFile, `export * from './${lowerCaseAggregateName}.dto';\n`);
     }
 }

@@ -12,9 +12,9 @@ export function createAggregateUseCaseQueryTypeIndexFile(input: {
     /****************************************** CREATE FOLDER ******************************************/
     const aggregateFolder = `src/features/${domainName.toLowerCase()}/app/usecases/${lowerCaseAggregateName}/query/types`;
     createFolderIfNotExists(aggregateFolder);
-    const indexAggregateDTOFile = `${aggregateFolder}/index.ts`;
+    const indexAggregateDtoFile = `${aggregateFolder}/index.ts`;
 
-    if (!fs.existsSync(indexAggregateDTOFile)) {
+    if (!fs.existsSync(indexAggregateDtoFile)) {
         const writer = new mod.default({
             // optional options
             useTabs: false, // default: false
@@ -24,25 +24,25 @@ export function createAggregateUseCaseQueryTypeIndexFile(input: {
         writer.writeLine(`export * from './get-${lowerCaseAggregateName}-by-id.types';`);
         writer.writeLine(`export * from './count-list-${lowerCaseAggregateName}.types';`);
         const fileContent = writer.toString();
-        fs.writeFileSync(`${indexAggregateDTOFile}`, fileContent);
+        fs.writeFileSync(`${indexAggregateDtoFile}`, fileContent);
         return;
     }
-    const fileContent = fs.readFileSync(indexAggregateDTOFile, 'utf8');
+    const fileContent = fs.readFileSync(indexAggregateDtoFile, 'utf8');
     if (!fileContent.includes(`export * from './get-list-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './get-list-${lowerCaseAggregateName}.usecase.types';\n`,
         );
     }
     if (!fileContent.includes(`export * from './get-${lowerCaseAggregateName}-by-id.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './get-${lowerCaseAggregateName}-by-id.usecase.types';\n`,
         );
     }
     if (!fileContent.includes(`export * from './count-list-${lowerCaseAggregateName}.types';`)) {
         fs.appendFileSync(
-            indexAggregateDTOFile,
+            indexAggregateDtoFile,
             `export * from './count-list-${lowerCaseAggregateName}.types';\n`,
         );
     }

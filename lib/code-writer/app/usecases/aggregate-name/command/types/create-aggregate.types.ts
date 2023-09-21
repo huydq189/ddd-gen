@@ -41,14 +41,14 @@ export function createAggregateCreateUseCaseTypeFile(input: {
 
     writer
         .writeLine(`import { z } from 'zod';`)
-        .writeLine(`import { Create${aggregateClassName}Input } from '../../../../domain';`)
+        .writeLine(`import { Create${aggregateClassName}Input } from '../../../../../domain';`)
         .blankLine()
         .writeLine(`export type Create${aggregateClassName}UseCaseInput = Create${aggregateClassName}Input;`)
         .blankLine()
         .writeLine(`export type Create${aggregateClassName}UseCaseOutput = {`)
         .writeLine(`${Space4x}id: string;`)
         .writeLine(`};`)
-        .writeLine(`export const Create${aggregateClassName}UseCaseInputSchema = z.object({`);
+        .writeLine(`export const create${aggregateClassName}UseCaseInputSchema = z.object({`);
 
     properties.forEach((property: any) => {
         const propertyType = getType(property.value);

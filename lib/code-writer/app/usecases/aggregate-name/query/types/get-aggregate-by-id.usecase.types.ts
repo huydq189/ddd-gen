@@ -35,7 +35,7 @@ export function createAggregateGetByIdUseCaseTypeFile(input: {
     writer
         .writeLine(`import { z } from 'zod';`)
         .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain/dtos';`)
-        .writeLine(`export const Get${aggregateClassName}UseCaseInputSchema = z.object({`)
+        .writeLine(`export const get${aggregateClassName}UseCaseInputSchema = z.object({`)
         .writeLine(`${Space4x}id: z.string().uuid(),`)
         .writeLine(`});`)
         .writeLine(

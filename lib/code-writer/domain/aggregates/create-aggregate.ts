@@ -29,9 +29,7 @@ export function createAggregateFile(input: any) {
         .writeLine(`import { ${aggregateClassName}EventNames } from './consts';`)
         .writeLine(`import {`)
         .writeLine(`${Space4x}Create${aggregateClassName}Input,`)
-        .writeLine(`${Space4x}Create${aggregateClassName}InputSchema,`)
         .writeLine(`${Space4x}Update${aggregateClassName}Input,`)
-        .writeLine(`${Space4x}Update${aggregateClassName}InputSchema,`)
         .writeLine(`} from './types';`);
 
     writer.writeLine(`export type ${aggregateClassName}Props = {`);
@@ -121,7 +119,7 @@ export function createAggregateFile(input: any) {
 
     writer
         .writeLine(`${Space8x}this.setCreatedAt(new Date());`)
-        .writeLine(`${Space8x}this.addDomainEvent(UnitEventNames.CREATE);`)
+        .writeLine(`${Space8x}this.addDomainEvent(${aggregateClassName}EventNames.CREATE);`)
         .writeLine(`${Space4x}}`)
         .blankLine();
 
@@ -158,7 +156,7 @@ export function createAggregateFile(input: any) {
         .writeLine(`${Space8x}this.setCode(this.code + deletedSuffix);`)
         .writeLine(`${Space8x}this.setName(this.name + deletedSuffix);`)
         .writeLine(`${Space8x}this.setDeletedAt(new Date());`)
-        .writeLine(`${Space8x}this.addDomainEvent(${aggregateClassName}EventNames.DELETE);`)
+        .writeLine(`${Space8x}this.addDomainEvent(${aggregateClassName}EventNames.DELETED);`)
         .writeLine(`${Space4x}}`);
 
     writer.writeLine('}');

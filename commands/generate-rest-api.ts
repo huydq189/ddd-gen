@@ -6,8 +6,8 @@ import {
     createAggregateCountListUseCaseTypeFile,
     createAggregateCreateUseCaseFile,
     createAggregateCreateUseCaseTypeFile,
-    createAggregateDTOFile,
-    createAggregateDTOIndexFile,
+    createAggregateDtoFile,
+    createAggregateDtoIndexFile,
     createAggregateDaoFile,
     createAggregateDaoIndexFile,
     createAggregateDeleteUseCaseFile,
@@ -94,8 +94,8 @@ export const generateRestAPI = function (path: string, options: any) {
     // │   └── dtos
     // │         ├── <aggregate-name>.dto.ts
     // │         └── index.ts
-    createAggregateDTOFile(input);
-    createAggregateDTOIndexFile(input);
+    createAggregateDtoFile(input);
+    createAggregateDtoIndexFile(input);
     // ├── domain
     // │   └── mappers
     // │         ├── <aggregate-name>.mapper.ts

@@ -60,7 +60,7 @@ export function createAggregateRepositoryFile(input: any) {
             `${Space4x}public async create(entity: I${aggregateClassName}, options?: RepositoryOptions): Promise<I${aggregateClassName}> {`,
         )
         .writeLine(
-            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDTO(entity);`,
+            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDto(entity);`,
         )
         .writeLine(
             `${Space8x}const trx = options?.trx ?? (await this.${lowerCaseAggregateName}Dao.startTrx());`,
@@ -83,7 +83,7 @@ export function createAggregateRepositoryFile(input: any) {
             `${Space4x}public async update(entity: I${aggregateClassName}, options?: RepositoryOptions): Promise<I${aggregateClassName}> {`,
         )
         .writeLine(
-            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDTO(entity);`,
+            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDto(entity);`,
         )
         .writeLine(
             `${Space8x}const trx = options?.trx ?? (await this.${lowerCaseAggregateName}Dao.startTrx());`,
@@ -110,7 +110,7 @@ export function createAggregateRepositoryFile(input: any) {
             `${Space4x}public async delete(entity: I${aggregateClassName}, options?: RepositoryOptions): Promise<I${aggregateClassName}> {`,
         )
         .writeLine(
-            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDTO(entity);`,
+            `${Space8x}const dto = await this.${lowerCaseAggregateName}Mapper.fromEntityToDto(entity);`,
         )
         .writeLine(
             `${Space8x}const trx = options?.trx ?? (await this.${lowerCaseAggregateName}Dao.startTrx());`,
@@ -140,7 +140,7 @@ export function createAggregateRepositoryFile(input: any) {
         .writeLine(`${Space8x}if (!dto) throw new ${aggregateClassName}NotFoundError();`)
         .writeLine(`${Space8x}try {`)
         .writeLine(`${Space12x}if (!options?.trx) await this.${lowerCaseAggregateName}Dao.commitTrx(trx);`)
-        .writeLine(`${Space12x}return this.${lowerCaseAggregateName}Mapper.fromDTOToEntity(dto);`)
+        .writeLine(`${Space12x}return this.${lowerCaseAggregateName}Mapper.fromDtoToEntity(dto);`)
         .writeLine(`${Space8x}} catch (error) {`)
         .writeLine(`${Space12x}if (!options?.trx) await this.${lowerCaseAggregateName}Dao.rollbackTrx(trx);`)
         .writeLine(`${Space12x}throw error;`)
@@ -158,7 +158,7 @@ export function createAggregateRepositoryFile(input: any) {
             `${Space12x}const listDto = (await this.${lowerCaseAggregateName}Dao.find(input)) as ${aggregateClassName}Dto[];`,
         )
         .writeLine(`${Space12x}if (!options?.trx) await this.${lowerCaseAggregateName}Dao.commitTrx(trx);`)
-        .writeLine(`${Space12x}return this.${lowerCaseAggregateName}Mapper.fromDTOsToEntities(listDTO);`)
+        .writeLine(`${Space12x}return this.${lowerCaseAggregateName}Mapper.fromDtosToEntities(listDto);`)
         .writeLine(`${Space8x}} catch (error) {`)
         .writeLine(`${Space12x}if (!options?.trx) await this.${lowerCaseAggregateName}Dao.rollbackTrx(trx);`)
         .writeLine(`${Space12x}throw error;`)

@@ -2,7 +2,7 @@ import * as mod from 'code-block-writer';
 import fs from 'fs';
 import { createFolderIfNotExists } from '../../../utils/create-folder-if-not-exists';
 import { Space4x, createClassName } from '../../../utils/string';
-export function createAggregateDTOFile(input: any) {
+export function createAggregateDtoFile(input: any) {
     const { aggregateName, domainName, properties } = input;
     const lowerCaseAggregateName = aggregateName.toLowerCase();
     const aggregateClassName = createClassName(aggregateName);
