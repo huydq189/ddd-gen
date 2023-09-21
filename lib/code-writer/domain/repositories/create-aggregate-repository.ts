@@ -24,7 +24,7 @@ export function createAggregateRepositoryFile(input: any) {
             `import { BaseRepository, IRepository, QueryInput, RepositoryOptions } from '@cbidigital/aqua';`,
         )
         .writeLine(`import { Inject, Optional, Repository, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Dao } from '../../infra';`)
         .writeLine(`import { I${aggregateClassName} } from '../aggregates';`)
         .writeLine(
@@ -40,18 +40,20 @@ export function createAggregateRepositoryFile(input: any) {
 
     writer
         .writeLine(
-            `@Repository({ token: InjectTokens.Repo.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
+            `@Repository({ token: ${upperCaseAggregateName}_INJECT_TOKENS.REPO.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
         )
         .writeLine(
             `export class ${aggregateClassName}Repository extends BaseRepository<I${aggregateClassName}> implements I${aggregateClassName}Repository {`,
         )
         .writeLine(`${Space4x}constructor(`)
-        .writeLine(`${Space8x}@Inject(InjectTokens.Mapper.${upperCaseAggregateName})`)
+        .writeLine(
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.MAPPER.${upperCaseAggregateName})`,
+        )
         .writeLine(`${Space8x}private ${lowerCaseAggregateName}Mapper: I${aggregateClassName}Mapper,`)
-        .writeLine(`${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName})`)
+        .writeLine(`${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.DAO.${upperCaseAggregateName})`)
         .writeLine(`${Space8x}private ${lowerCaseAggregateName}Dao: I${aggregateClassName}Dao,`)
         .writeLine(`${Space4x}) {`)
-        .writeLine(`${Space8x}super(_${lowerCaseAggregateName}Mapper, ${lowerCaseAggregateName}Dao);`)
+        .writeLine(`${Space8x}super(${lowerCaseAggregateName}Mapper, ${lowerCaseAggregateName}Dao);`)
         .writeLine(`${Space4x}}`);
 
     //create

@@ -22,7 +22,7 @@ export function createAggregateMapperFile(input: any) {
     writer
         .writeLine(`import { BaseMapper, IMapper } from '@cbidigital/aqua';`)
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName} } from '../aggregates';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../builders';`)
         .writeLine(`import { ${aggregateClassName}Dto } from '../dtos';`)
@@ -36,13 +36,15 @@ export function createAggregateMapperFile(input: any) {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.Mapper.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
+            `@Provider({ token: ${upperCaseAggregateName}_INJECT_TOKENS.MAPPER.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
         )
         .writeLine(
             `export class ${aggregateClassName}Mapper extends BaseMapper implements I${aggregateClassName}Mapper {`,
         )
         .writeLine(`${Space4x}constructor(`)
-        .writeLine(`${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName})`)
+        .writeLine(
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.BUILDER.${upperCaseAggregateName})`,
+        )
         .writeLine(`${Space8x}protected readonly ${aggregateName}Builder: I${aggregateClassName}Builder,`)
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super();`)

@@ -21,8 +21,8 @@ export function createAggregateUseCaseCommandTypeIndexFile(input: {
             useSingleQuote: true, // default: false
         });
         writer.writeLine(`export * from './create-${lowerCaseAggregateName}.types';`);
-        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.types.ts';`);
-        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.types.ts';`);
+        writer.writeLine(`export * from './update-${lowerCaseAggregateName}.types';`);
+        writer.writeLine(`export * from './delete-${lowerCaseAggregateName}.types';`);
         const fileContent = writer.toString();
         fs.writeFileSync(`${indexAggregateDtoFile}`, fileContent);
         return;

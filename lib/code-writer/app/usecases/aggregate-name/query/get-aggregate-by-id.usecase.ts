@@ -30,7 +30,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
             `import { IUseCase, ResultOf, UseCase, UseCaseContext, ValidatorUtil } from '@cbidigital/aqua';`,
         )
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}NotFoundError } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Dao } from '../../../../infra';`)
         .writeLine(
@@ -46,7 +46,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.GET_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
+            `@Provider({ token: ${upperCaseAggregateName}_INJECT_TOKENS.USECASE.GET_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class Get${aggregateClassName}UseCase<`)
         .writeLine(
@@ -62,7 +62,7 @@ export function createAggregateGetByIdUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.DAO.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)

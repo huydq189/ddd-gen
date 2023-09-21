@@ -30,7 +30,7 @@ export function createAggregateBuilderFile(input: any) {
     writer
         .writeLine(`import { DomainEvent, IEntityBuilder, IDomainEventHandler } from '@cbidigital/aqua';`)
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Dao } from '../../infra';`)
         .writeLine(
             `import { I${aggregateClassName}, ${aggregateClassName}, ${aggregateClassName}Props } from '../aggregates';`,
@@ -50,16 +50,18 @@ export function createAggregateBuilderFile(input: any) {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.Builder.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
+            `@Provider({ token: ${upperCaseAggregateName}_INJECT_TOKENS.BUILDER.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
         )
         .writeLine(`export class ${aggregateClassName}Builder implements I${aggregateClassName}Builder {`)
         .writeLine(`${Space4x}constructor(`)
-        .writeLine(`${Space8x}@Inject(InjectTokens.EventHandler.${upperCaseAggregateName})`)
+        .writeLine(
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.EVENT_HANDLER.${upperCaseAggregateName})`,
+        )
         .writeLine(
             `${Space8x}protected readonly eventHandler: IDomainEventHandler<DomainEvent<${aggregateClassName}Props>>,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao,`,
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.DAO.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao,`,
         )
         .writeLine(`${Space4x}) {}`)
         .blankLine();

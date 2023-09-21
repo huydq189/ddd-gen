@@ -32,7 +32,9 @@ export function createAggregatePresentationFile(input: any) {
             `import { Body, Delete, Fuse, Get, Param, Patch, Post, Query, Rest } from '@heronjs/common';`,
         )
         .writeLine(`import { StatusCodes } from 'http-status-codes';`)
-        .writeLine(`import { InjectTokens } from '../../../../../../../constants';`)
+        .writeLine(
+            `import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../../../../constants';`,
+        )
         .writeLine(`import {`)
         .writeLine(`${Space4x}Create${aggregateClassName}UseCaseInput,`)
         .writeLine(`${Space4x}ICreate${aggregateClassName}UseCase,`)
@@ -52,7 +54,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Get({ uri: '/count' })`)
         .writeLine(`${Space4x}public async count(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.COUNT_LIST_${upperCaseAggregateName}) useCase: ICountList${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.COUNT_LIST_${upperCaseAggregateName}) useCase: ICountList${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Query('filter') filter: any,`)
         .writeLine(`${Space8x}@Query('eavFilter') eavFilter: any,`)
@@ -78,7 +80,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Post({ uri: '/', code: StatusCodes.CREATED })`)
         .writeLine(`${Space4x}public async create(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.CREATE_${upperCaseAggregateName}) useCase: ICreate${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.CREATE_${upperCaseAggregateName}) useCase: ICreate${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Body() body: Create${aggregateClassName}UseCaseInput,`)
         .writeLine(`${Space4x}) {`)
@@ -92,7 +94,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Patch({ uri: '/:id', code: StatusCodes.NO_CONTENT })`)
         .writeLine(`${Space4x}public async update(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.UPDATE_${upperCaseAggregateName}) useCase: IUpdate${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.UPDATE_${upperCaseAggregateName}) useCase: IUpdate${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Body() body: Update${aggregateClassName}UseCaseInput,`)
         .writeLine(`${Space8x}@Param('id') id: string,`)
@@ -113,7 +115,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Delete({ uri: '/soft/:id', code: StatusCodes.NO_CONTENT })`)
         .writeLine(`${Space4x}public async softDelete(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.SOFT_DELETE_${upperCaseAggregateName}) useCase: ISoftDelete${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.SOFT_DELETE_${upperCaseAggregateName}) useCase: ISoftDelete${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Param('id') id: string,`)
         .writeLine(`${Space4x}) {`)
@@ -132,7 +134,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Delete({ uri: '/:id', code: StatusCodes.NO_CONTENT })`)
         .writeLine(`${Space4x}public async delete(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.DELETE_${upperCaseAggregateName}) useCase: IDelete${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.DELETE_${upperCaseAggregateName}) useCase: IDelete${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Param('id') id: string,`)
         .writeLine(`${Space4x}) {`)
@@ -151,7 +153,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Get({ uri: '/:id' })`)
         .writeLine(`${Space4x}public async getById(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.GET_${upperCaseAggregateName}_BY_ID) useCase: IGet${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.GET_${upperCaseAggregateName}_BY_ID) useCase: IGet${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Param('id') id: string,`)
         .writeLine(`${Space4x}) {`)
@@ -168,7 +170,7 @@ export function createAggregatePresentationFile(input: any) {
         .writeLine(`${Space4x}@Get({ uri: '/' })`)
         .writeLine(`${Space4x}public async getList(`)
         .writeLine(
-            `${Space8x}@Fuse(InjectTokens.UseCase.GET_LIST_${upperCaseAggregateName}) useCase: IGetList${aggregateClassName}UseCase,`,
+            `${Space8x}@Fuse(${upperCaseAggregateName}_INJECT_TOKENS.USECASE.GET_LIST_${upperCaseAggregateName}) useCase: IGetList${aggregateClassName}UseCase,`,
         )
         .writeLine(`${Space8x}@Query('filter') filter: any,`)
         .writeLine(`${Space8x}@Query('eavFilter') eavFilter: any,`)

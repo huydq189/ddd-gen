@@ -36,7 +36,7 @@ export function createAggregateCreateUseCaseFile(input: {
             `import { IUseCase, ResultOf, UseCase, UseCaseContext, ValidatorUtil } from '@cbidigital/aqua';`,
         )
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../../../constants';`)
         .writeLine(`import { I${aggregateClassName}Builder } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Repository } from '../../../../domain/repositories';`)
         .writeLine(
@@ -52,7 +52,7 @@ export function createAggregateCreateUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.CREATE_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
+            `@Provider({ token: ${upperCaseAggregateName}_INJECT_TOKENS.USECASE.CREATE_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class Create${aggregateClassName}UseCase<`)
         .writeLine(
@@ -68,10 +68,10 @@ export function createAggregateCreateUseCaseFile(input: {
         .writeLine(`{`)
         .writeLine(`${Space4x}constructor(`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Builder.${upperCaseAggregateName}) protected readonly builder: I${aggregateClassName}Builder,`,
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.BUILDER.${upperCaseAggregateName}) protected readonly builder: I${aggregateClassName}Builder,`,
         )
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Repo.${upperCaseAggregateName}) protected readonly repo: I${aggregateClassName}Repository,`,
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.REPO.${upperCaseAggregateName}) protected readonly repo: I${aggregateClassName}Repository,`,
         )
         .writeLine(`${Space4x}) {`)
         .writeLine(`${Space8x}super();`)

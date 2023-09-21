@@ -30,7 +30,7 @@ export function createAggregateCountListUseCaseFile(input: {
             `import { IUseCase, PaginationUtil, ResultOf, UseCase, UseCaseContext } from '@cbidigital/aqua';`,
         )
         .writeLine(`import { Inject, Provider, Lifecycle } from '@heronjs/common';`)
-        .writeLine(`import { InjectTokens } from '../../../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_INJECT_TOKENS } from '../../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}Dto } from '../../../../domain';`)
         .writeLine(`import { I${aggregateClassName}Dao } from '../../../../infra/databases';`)
         .writeLine(
@@ -48,7 +48,7 @@ export function createAggregateCountListUseCaseFile(input: {
 
     writer
         .writeLine(
-            `@Provider({ token: InjectTokens.UseCase.COUNT_LIST_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
+            `@Provider({ token: ${upperCaseAggregateName}_INJECT_TOKENS.USECASE.COUNT_LIST_${upperCaseAggregateName}, scope: Lifecycle.Transient })`,
         )
         .writeLine(`export class CountList${aggregateClassName}UseCase<`)
         .writeLine(
@@ -63,7 +63,7 @@ export function createAggregateCountListUseCaseFile(input: {
         .writeLine(`${Space4x}implements ICountList${aggregateClassName}UseCase`)
         .writeLine(`{`)
         .writeLine(
-            `${Space4x}constructor(@Inject(InjectTokens.Dao.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
+            `${Space4x}constructor(@Inject(${upperCaseAggregateName}_INJECT_TOKENS.DAO.${upperCaseAggregateName}) protected readonly dao: I${aggregateClassName}Dao) {`,
         )
         .writeLine(`${Space8x}super();`)
         .writeLine(`${Space8x}this.setMethods(this.validate, this.processing, this.map);`)

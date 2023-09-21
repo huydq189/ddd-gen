@@ -22,13 +22,13 @@ export function createAggregateDaoFile(input: any) {
     writer
         .writeLine(`import { BaseTable, Column, TABLE_FIELD_DEFAULT_VALUE, Table } from '@cbidigital/aqua';`)
         .writeLine(`import { Nullable } from '@heronjs/common';`)
-        .writeLine(`import { TableNames } from '../../../../../constants';`)
+        .writeLine(`import { ${upperCaseAggregateName}_TABLE_NAMES } from '../../../../../constants';`)
         .writeLine(`import { ${aggregateClassName}Dto } from '../../../domain';`)
         .blankLine();
 
     writer
         .writeLine(`@Table({`)
-        .writeLine(`${Space4x}name: TableNames.${upperCaseAggregateName},`)
+        .writeLine(`${Space4x}name: ${upperCaseAggregateName}_TABLE_NAMES.${upperCaseAggregateName},`)
         .writeLine(`})`);
 
     writer

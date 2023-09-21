@@ -25,7 +25,9 @@ export function createAggregateTableFile(input: any) {
             `import { Dao, DataSource, Inject, Lifecycle, Logger, ModuleDataSource } from '@heronjs/common';`,
         )
         .writeLine(`import { KnexClient } from '@heronjs/core';`)
-        .writeLine(`import { InjectTokens, TableNames } from '../../../../../constants';`)
+        .writeLine(
+            `import { ${upperCaseAggregateName}_INJECT_TOKENS, ${upperCaseAggregateName}_TABLE_NAMES } from '../../../../../constants';`,
+        )
         .writeLine(`import { ${aggregateClassName}Dto } from '../../../domain';`);
 
     writer
@@ -33,17 +35,21 @@ export function createAggregateTableFile(input: any) {
         .blankLine();
 
     writer
-        .writeLine(`@Dao({ token: InjectTokens.Dao.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`)
+        .writeLine(
+            `@Dao({ token: ${upperCaseAggregateName}_INJECT_TOKENS.DAO.${upperCaseAggregateName}, scope: Lifecycle.Singleton })`,
+        )
         .writeLine(
             `export class ${aggregateClassName}Dao extends BaseDao<${aggregateClassName}Dto> implements I${aggregateClassName}Dao {`,
         )
         .writeLine(`${Space4x}constructor(`)
         .writeLine(`${Space8x}@DataSource() db: ModuleDataSource<KnexClient>,`)
         .writeLine(
-            `${Space8x}@Inject(InjectTokens.Common.${domainName.toUpperCase()}_QUERY_UTIL) queryUtil: IQueryUtil<${aggregateClassName}Dto>,`,
+            `${Space8x}@Inject(${upperCaseAggregateName}_INJECT_TOKENS.QUERY_UTIL) queryUtil: IQueryUtil<${aggregateClassName}Dto>,`,
         )
         .writeLine(`${Space4x}) {`)
-        .writeLine(`${Space8x}super({ db, queryUtil, tableName: TableNames.${upperCaseAggregateName} });`)
+        .writeLine(
+            `${Space8x}super({ db, queryUtil, tableName: ${upperCaseAggregateName}_TABLE_NAMES.${upperCaseAggregateName} });`,
+        )
         .writeLine(`${Space4x}}`)
         .blankLine();
 
